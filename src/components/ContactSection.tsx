@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Github, Linkedin, Mail, Twitter, MessageCircle, FileText } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter, MessageCircle } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,38 +44,24 @@ const ContactSection = () => {
           Have a project in mind? I'd love to hear about it. Let's create something extraordinary together.
         </p>
 
-        <div className="reveal-contact flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-heading font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-all duration-300 hover:scale-105"
-            style={{ boxShadow: "var(--gold-glow-strong)" }}
-          >
-            <MessageCircle className="w-5 h-5" />
-            Get In Touch
-          </a>
-
-          <a
-            href="#resume"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("resume")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-heading font-semibold glass-card gold-border-hover text-foreground hover:text-primary transition-all duration-300 hover:scale-105"
-          >
-            <FileText className="w-5 h-5" />
-            View Resume
-          </a>
-        </div>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="reveal-contact inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-heading font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-all duration-300 hover:scale-105"
+          style={{ boxShadow: "var(--gold-glow-strong)" }}
+        >
+          <MessageCircle className="w-5 h-5" />
+          Get In Touch
+        </a>
 
         {/* Social links */}
         <div className="reveal-contact flex justify-center gap-6 mt-12">
           {[
             { icon: Github, label: "GitHub", url: "https://github.com/cvsuhail" },
-            { icon: Linkedin, label: "LinkedIn", url: "https://linkedin.com/in/cvsuhail" },
+            { icon: Linkedin, label: "LinkedIn", url: "https://linkedin.com/in/suhailcv/" },
             { icon: Twitter, label: "Twitter", url: "https://twitter.com/cvsuhail" },
-            { icon: Mail, label: "Email", url: "mailto:hello@cvsuhail.com" },
+            { icon: Mail, label: "Email", url: "mailto:cvsuhail.ckd@gmail.com" },
           ].map(({ icon: Icon, label, url }) => (
             <a
               key={label}
@@ -93,7 +79,7 @@ const ContactSection = () => {
         {/* Footer */}
         <div className="reveal-contact mt-20 pt-8 border-t border-border">
           <p className="text-sm text-muted-foreground font-body">
-            © 2026 CvSuhail. Crafted with passion & precision.
+            © 2026 Muhammed Suhail CV. Crafted with passion & precision.
           </p>
         </div>
       </div>
