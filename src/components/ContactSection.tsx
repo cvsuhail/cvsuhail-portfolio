@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter, MessageCircle, FileText } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +31,8 @@ const ContactSection = () => {
     });
   }, []);
 
+  const whatsappUrl = `https://wa.me/919562770397?text=${encodeURIComponent("Hi CvSuhail, I found you through your portfolio and would love to connect!")}`;
+
   return (
     <section id="contact" ref={sectionRef} className="section-padding noise-bg relative min-h-screen flex items-center">
       <div className="max-w-4xl mx-auto text-center w-full">
@@ -42,14 +44,30 @@ const ContactSection = () => {
           Have a project in mind? I'd love to hear about it. Let's create something extraordinary together.
         </p>
 
-        <a
-          href="mailto:hello@cvsuhail.com"
-          className="reveal-contact inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-heading font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-all duration-300 hover:scale-105"
-          style={{ boxShadow: "var(--gold-glow-strong)" }}
-        >
-          <Mail className="w-5 h-5" />
-          Get In Touch
-        </a>
+        <div className="reveal-contact flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-heading font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-all duration-300 hover:scale-105"
+            style={{ boxShadow: "var(--gold-glow-strong)" }}
+          >
+            <MessageCircle className="w-5 h-5" />
+            Get In Touch
+          </a>
+
+          <a
+            href="#resume"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("resume")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-heading font-semibold glass-card gold-border-hover text-foreground hover:text-primary transition-all duration-300 hover:scale-105"
+          >
+            <FileText className="w-5 h-5" />
+            View Resume
+          </a>
+        </div>
 
         {/* Social links */}
         <div className="reveal-contact flex justify-center gap-6 mt-12">
@@ -57,6 +75,7 @@ const ContactSection = () => {
             { icon: Github, label: "GitHub", url: "https://github.com/cvsuhail" },
             { icon: Linkedin, label: "LinkedIn", url: "https://linkedin.com/in/cvsuhail" },
             { icon: Twitter, label: "Twitter", url: "https://twitter.com/cvsuhail" },
+            { icon: Mail, label: "Email", url: "mailto:hello@cvsuhail.com" },
           ].map(({ icon: Icon, label, url }) => (
             <a
               key={label}

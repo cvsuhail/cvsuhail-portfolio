@@ -31,7 +31,7 @@ const AboutSection = () => {
   }, []);
 
   const stats = [
-    { value: "3+", label: "Years Experience" },
+    { value: "3.10+", label: "Years Experience" },
     { value: "15+", label: "Projects Shipped" },
     { value: "5+", label: "SaaS Products" },
     { value: "∞", label: "Pixels Perfected" },
@@ -46,7 +46,7 @@ const AboutSection = () => {
 
         <div className="reveal text-lg md:text-xl text-muted-foreground leading-relaxed space-y-6 font-body max-w-3xl">
           <p>
-            I'm a <span className="text-foreground font-medium">Frontend Engineer</span> who thrives at the intersection
+            I'm a <span className="text-foreground font-medium">Frontend Engineer</span> with <span className="text-foreground font-medium">3.10+ years</span> of experience who thrives at the intersection
             of design and code. I specialize in building visually stunning, high-performance user interfaces
             that leave a lasting impression.
           </p>
@@ -54,6 +54,10 @@ const AboutSection = () => {
             With deep expertise in <span className="text-foreground font-medium">React.js, Next.js, React Native & Flutter</span>,
             I architect full-stack solutions using BaaS platforms like Supabase and Firestore — shipping everything
             from e-commerce SaaS platforms to mobile apps serving thousands of users.
+          </p>
+          <p>
+            I'm also an expert in <span className="text-foreground font-medium">app deployment</span> — from Google Play Store Console to Apple App Store Connect,
+            I handle the full lifecycle of mobile app publishing.
           </p>
         </div>
 

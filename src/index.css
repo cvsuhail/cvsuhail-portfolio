@@ -127,6 +127,15 @@
     box-shadow: var(--gold-glow);
   }
 
+  @keyframes pulse-gold {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  .animate-pulse-gold {
+    animation: pulse-gold 2s ease-in-out infinite;
+  }
+
   .project-card {
     @apply rounded-2xl overflow-hidden transition-all duration-500;
     background: hsl(0 0% 7%);
