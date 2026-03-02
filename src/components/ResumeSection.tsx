@@ -5,16 +5,18 @@ import { Briefcase, GraduationCap, Code2, Smartphone, Server, Wrench } from "luc
 
 gsap.registerPlugin(ScrollTrigger);
 
-const experience = [
+const experiences = [
   {
-    role: "Frontend Engineer",
-    duration: "3.10+ Years",
-    highlights: [
-      "Built & shipped 15+ production apps and websites",
-      "Specialized in React.js, Next.js, React Native & Flutter",
-      "Expert in Play Store Console & App Store Connect deployment",
-      "Full-stack development with Supabase & Firebase BaaS",
-    ],
+    role: "Software Engineer (Frontend-Focused Full Stack & Ecommerce)",
+    company: "UnitVilla LLC",
+    location: "Remote (Vancouver, BC)",
+    duration: "Dec 2024 – Present",
+  },
+  {
+    role: "Junior Software Engineer (Web & Ecommerce Development)",
+    company: "Keibot Learning Solutions Pvt Ltd",
+    location: "Hybrid (Kannur, Kerala, India)",
+    duration: "Apr 2022 – Nov 2024",
   },
 ];
 
@@ -22,7 +24,7 @@ const skillCategories = [
   { icon: Code2, title: "Frontend", skills: "React.js, Next.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, GSAP" },
   { icon: Smartphone, title: "Mobile", skills: "React Native, Flutter, Dart, iOS & Android Development" },
   { icon: Server, title: "Backend", skills: "Supabase, Firebase, Firestore, Node.js, REST APIs" },
-  { icon: Wrench, title: "DevOps", skills: "Play Store Console, App Store Connect, Git, Vercel, Figma" },
+  { icon: Wrench, title: "DevOps & Tools", skills: "Play Store Console, App Store Connect, Git, Figma, VS Code, Vercel" },
 ];
 
 const ResumeSection = () => {
@@ -56,10 +58,10 @@ const ResumeSection = () => {
     <section id="resume" ref={sectionRef} className="section-padding noise-bg relative">
       <div className="max-w-5xl mx-auto">
         <h2 className="resume-reveal text-4xl md:text-6xl font-heading font-bold tracking-tight mb-4">
-          ATS <span className="text-gradient">Resume</span>
+          <span className="text-gradient">Resume</span>
         </h2>
         <p className="resume-reveal text-muted-foreground font-body text-lg mb-16 max-w-xl">
-          A structured overview of my professional journey — optimized for both humans and machines.
+          A structured overview of my professional journey.
         </p>
 
         {/* Experience */}
@@ -68,22 +70,17 @@ const ResumeSection = () => {
             <Briefcase className="w-6 h-6 text-primary" />
             <h3 className="text-2xl font-heading font-bold text-foreground">Experience</h3>
           </div>
-          {experience.map((exp) => (
-            <div key={exp.role}>
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+          <div className="space-y-8">
+            {experiences.map((exp) => (
+              <div key={exp.company} className="relative pl-6 border-l-2 border-primary/30">
+                <div className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-primary" />
                 <h4 className="text-lg font-heading font-semibold text-foreground">{exp.role}</h4>
-                <span className="text-sm text-primary font-heading font-medium">{exp.duration}</span>
+                <p className="text-primary font-heading font-medium text-sm mt-1">{exp.company}</p>
+                <p className="text-muted-foreground font-body text-sm">{exp.location}</p>
+                <p className="text-muted-foreground font-body text-xs mt-1">{exp.duration}</p>
               </div>
-              <ul className="space-y-2">
-                {exp.highlights.map((h) => (
-                  <li key={h} className="text-muted-foreground font-body text-sm flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    {h}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Skills Grid */}
@@ -99,15 +96,19 @@ const ResumeSection = () => {
           ))}
         </div>
 
-        {/* Education placeholder */}
+        {/* Education */}
         <div className="resume-reveal glass-card gold-border-hover p-8 mt-8">
           <div className="flex items-center gap-3 mb-4">
             <GraduationCap className="w-6 h-6 text-primary" />
             <h3 className="text-2xl font-heading font-bold text-foreground">Education</h3>
           </div>
-          <p className="text-muted-foreground font-body text-sm">
-            Self-taught developer with a passion for continuous learning. Proficient through hands-on experience building real-world products and platforms.
-          </p>
+          <div className="pl-6 border-l-2 border-primary/30 relative">
+            <div className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-primary" />
+            <h4 className="text-lg font-heading font-semibold text-foreground">Bachelor of Computer Application (BCA)</h4>
+            <p className="text-primary font-heading font-medium text-sm mt-1">Malabar College of Advanced Studies</p>
+            <p className="text-muted-foreground font-body text-sm">Affiliated to Calicut University</p>
+            <p className="text-muted-foreground font-body text-xs mt-1">2019 – 2022</p>
+          </div>
         </div>
       </div>
     </section>
