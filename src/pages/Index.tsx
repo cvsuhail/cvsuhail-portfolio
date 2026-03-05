@@ -7,6 +7,7 @@ import PortfoliosSection from "@/components/PortfoliosSection";
 import ResumeSection from "@/components/ResumeSection";
 import ContactSection from "@/components/ContactSection";
 import AIChatWidget from "@/components/AIChatWidget";
+import FAQSection from "@/components/FAQSection";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <ProjectsSection />
       <PortfoliosSection />
       <ResumeSection />
+      <FAQSection />
       <ContactSection />
       <AIChatWidget />
     </main>

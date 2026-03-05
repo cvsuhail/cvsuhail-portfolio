@@ -47,13 +47,14 @@ const AboutSection = () => {
         <div className="reveal text-lg md:text-xl text-muted-foreground leading-relaxed space-y-6 font-body max-w-3xl">
           <p>
             I'm a <span className="text-foreground font-medium">Frontend Engineer</span> with <span className="text-foreground font-medium">3.10+ years</span> of experience who thrives at the intersection
-            of design and code. I specialize in building visually stunning, high-performance user interfaces
-            that leave a lasting impression.
+            of design and code. I specialize in building visually stunning, high-performance digital products — from
+            marketing websites and dashboards to full web apps and SaaS platforms.
           </p>
           <p>
             With deep expertise in <span className="text-foreground font-medium">React.js, Next.js, React Native & Flutter</span>,
             I architect full-stack solutions using BaaS platforms like Supabase and Firestore — shipping everything
-            from e-commerce SaaS platforms to mobile apps serving thousands of users.
+            from <span className="text-foreground font-medium">custom mobile apps</span> to <span className="text-foreground font-medium">production-ready web applications and software</span> used by
+            real users.
           </p>
           <p>
             I'm also an expert in <span className="text-foreground font-medium">app deployment</span> — from Google Play Store Console to Apple App Store Connect,
