@@ -17,6 +17,7 @@ const AIChatWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const whatsappNumber = "919562770397";
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -25,6 +26,17 @@ const AIChatWidget = () => {
   useEffect(() => {
     if (isOpen) inputRef.current?.focus();
   }, [isOpen]);
+
+  const lastUserMessage =
+    [...messages].reverse().find((m) => m.role === "user")?.content.toLowerCase() || "";
+
+  const shouldShowWhatsAppCTA = /whatsapp|contact|connect|reach out|talk|call|message|dm|hire/.test(
+    lastUserMessage
+  );
+
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    "Hi CvSuhail, this message is from the AI chat on your portfolio. I'd love to connect!"
+  )}`;
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
@@ -61,7 +73,7 @@ const AIChatWidget = () => {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:scale-110 transition-transform duration-300"
+        className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:scale-110 transition-transform duration-300"
         style={{ boxShadow: "var(--gold-glow-strong)" }}
         aria-label="Chat with AI"
       >
@@ -71,7 +83,7 @@ const AIChatWidget = () => {
       {/* Chat Panel */}
       {isOpen && (
         <div
-          className="fixed bottom-24 right-6 z-50 w-[360px] max-h-[500px] rounded-2xl overflow-hidden flex flex-col"
+          className="fixed bottom-20 md:bottom-24 right-4 md:right-6 left-4 md:left-auto z-50 w-auto md:w-[360px] max-h-[60vh] md:max-h-[500px] rounded-2xl overflow-hidden flex flex-col"
           style={{
             background: "hsl(0 0% 6%)",
             border: "1px solid hsl(43 80% 55% / 0.2)",
@@ -90,7 +102,7 @@ const AIChatWidget = () => {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 max-h-[340px]">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 max-h-[50vh] md:max-h-[340px]">
             {messages.map((msg, i) => (
               <div key={i} className={`flex gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                 {msg.role === "assistant" && (
@@ -137,8 +149,23 @@ const AIChatWidget = () => {
             <div ref={messagesEndRef} />
           </div>
 
+          {/* WhatsApp CTA */}
+          {shouldShowWhatsAppCTA && (
+            <div className="px-4 pb-2 border-t border-border/70 bg-background/60">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-500 text-xs md:text-sm text-white font-heading font-semibold px-4 py-2 hover:bg-emerald-400 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Message CvSuhail on WhatsApp
+              </a>
+            </div>
+          )}
+
           {/* Input */}
-          <div className="p-3 border-t border-border">
+          <div className="p-3 border-t border-border bg-background/90">
             <form
               onSubmit={(e) => {
                 e.preventDefault();

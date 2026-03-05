@@ -19,7 +19,7 @@ const ContactSection = () => {
         {
           y: 0,
           opacity: 1,
-          duration: 1,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
             trigger: el,
@@ -77,10 +77,23 @@ const ContactSection = () => {
         </div>
 
         {/* Footer */}
-        <div className="reveal-contact mt-20 pt-8 border-t border-border">
-          <p className="text-sm text-muted-foreground font-body">
-            © 2026 Muhammed Suhail CV. Crafted with passion & precision.
-          </p>
+        <div className="reveal-contact mt-20 pt-8 border-t border-border/60">
+          <div className="flex flex-col items-center gap-3 text-sm text-muted-foreground font-body">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border/70 bg-background/80 shadow-sm">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-[0.7rem] uppercase tracking-[0.2em] text-muted-foreground/80">
+                Available for exciting projects
+              </span>
+            </div>
+            <div className="text-center space-y-1">
+              <p>
+                © 2026 <span className="text-foreground font-medium">Muhammed Suhail CV</span>
+              </p>
+              <p className="text-xs text-muted-foreground/80">
+                Crafted with passion & precision from Kerala, India.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

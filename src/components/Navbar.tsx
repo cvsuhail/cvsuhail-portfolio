@@ -7,8 +7,8 @@ const Navbar = () => {
   useEffect(() => {
     gsap.fromTo(
       navRef.current,
-      { y: -80, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, delay: 0.5, ease: "power3.out" }
+      { y: -40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
     );
   }, []);
 
@@ -26,7 +26,7 @@ const Navbar = () => {
         Cv<span className="text-gradient">Suhail</span>
       </button>
       <div className="hidden md:flex items-center gap-8">
-        {["About", "Skills", "Projects", "Resume", "Contact"].map((item) => (
+        {["About", "Skills", "Projects", "Portfolios", "Resume", "Contact"].map((item) => (
           <button
             key={item}
             onClick={() => scrollTo(item.toLowerCase())}

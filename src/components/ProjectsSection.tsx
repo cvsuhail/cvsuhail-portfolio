@@ -52,12 +52,6 @@ const personalProjects = [
     tags: ["Business", "Landing Page"],
     url: "https://www.bhkochitourcabs.com/",
   },
-  {
-    title: "Jazeel",
-    description: "Elegant web experience with refined aesthetics.",
-    tags: ["Landing Page", "Design"],
-    url: "https://jazeel.awwads.in/",
-  },
 ];
 
 const companyProjects = [
@@ -122,8 +116,8 @@ const ProjectsSection = () => {
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          delay: i * 0.1,
+          duration: 0.7,
+          delay: i * 0.06,
           ease: "power3.out",
           scrollTrigger: {
             trigger: card,

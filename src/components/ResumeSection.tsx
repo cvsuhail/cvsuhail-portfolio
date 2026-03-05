@@ -41,8 +41,8 @@ const ResumeSection = () => {
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          delay: i * 0.1,
+          duration: 0.7,
+          delay: i * 0.06,
           ease: "power3.out",
           scrollTrigger: {
             trigger: el,

@@ -10,30 +10,34 @@ const HeroSection = () => {
   const badgesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    if (!imageRef.current || !nameRef.current || !subtitleRef.current || !badgesRef.current) return;
+
+    const nameChars = nameRef.current.querySelectorAll(".char");
 
     tl.fromTo(
       imageRef.current,
-      { scale: 1.3, opacity: 0, clipPath: "circle(0% at 50% 50%)" },
-      { scale: 1, opacity: 1, clipPath: "circle(50% at 50% 50%)", duration: 1.5, delay: 0.3 }
+      { scale: 1.15, opacity: 0, clipPath: "circle(0% at 50% 50%)" },
+      { scale: 1, opacity: 1, clipPath: "circle(55% at 50% 50%)", duration: 0.9 }
     )
       .fromTo(
-        nameRef.current?.querySelectorAll(".char") || [],
-        { y: 120, opacity: 0, rotateX: -90 },
-        { y: 0, opacity: 1, rotateX: 0, duration: 1, stagger: 0.04 },
-        "-=1"
-      )
-      .fromTo(
-        subtitleRef.current,
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8 },
+        nameChars,
+        { y: 80, opacity: 0, rotateX: -60 },
+        { y: 0, opacity: 1, rotateX: 0, duration: 0.8, stagger: 0.03 },
         "-=0.5"
       )
       .fromTo(
-        badgesRef.current?.children || [],
-        { y: 30, opacity: 0, scale: 0.8 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.1 },
-        "-=0.4"
+        subtitleRef.current,
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6 },
+        "-=0.3"
+      )
+      .fromTo(
+        badgesRef.current.children,
+        { y: 20, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.06 },
+        "-=0.3"
       );
   }, []);
 
@@ -67,7 +71,7 @@ const HeroSection = () => {
         {/* Name */}
         <h1
           ref={nameRef}
-          className="text-6xl md:text-8xl lg:text-9xl font-heading font-bold tracking-tighter text-gradient leading-none"
+          className="hero-name text-6xl md:text-8xl lg:text-9xl font-heading font-bold tracking-tighter leading-none text-foreground"
         >
           {nameChars}
         </h1>

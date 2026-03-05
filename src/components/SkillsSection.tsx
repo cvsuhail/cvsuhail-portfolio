@@ -26,8 +26,8 @@ const SkillsSection = () => {
           y: 0,
           opacity: 1,
           scale: 1,
-          duration: 0.8,
-          delay: i * 0.15,
+          duration: 0.7,
+          delay: i * 0.08,
           ease: "power3.out",
           scrollTrigger: {
             trigger: card,
