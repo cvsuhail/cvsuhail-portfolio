@@ -41,7 +41,8 @@ const ContactSection = () => {
         </h2>
 
         <p className="reveal-contact text-lg text-muted-foreground font-body mb-12 max-w-lg mx-auto">
-          Have a project in mind? I'd love to hear about it. Let's create something extraordinary together.
+          Have an idea for a mobile app, web app, website or SaaS product? Share a few details and I'll reply
+          with a clear, actionable plan.
         </p>
 
         <a

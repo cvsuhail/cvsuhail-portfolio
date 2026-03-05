@@ -78,9 +78,11 @@ const HeroSection = () => {
 
         {/* Subtitle */}
         <p ref={subtitleRef} className="text-lg md:text-xl text-muted-foreground max-w-xl font-body">
-          Frontend Engineer crafting <span className="text-foreground font-medium">pixel-perfect</span>,{" "}
-          <span className="text-foreground font-medium">performant</span> &{" "}
-          <span className="text-foreground font-medium">delightful</span> digital experiences.
+          I help startups and businesses ship{" "}
+          <span className="text-foreground font-medium">custom mobile apps</span>,{" "}
+          <span className="text-foreground font-medium">web apps</span>,{" "}
+          <span className="text-foreground font-medium">websites</span> and{" "}
+          <span className="text-foreground font-medium">SaaS products</span> that look premium and perform fast.
         </p>
 
         {/* Badges */}
