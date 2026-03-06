@@ -78,11 +78,9 @@ const HeroSection = () => {
 
         {/* Subtitle */}
         <p ref={subtitleRef} className="text-lg md:text-xl text-muted-foreground max-w-xl font-body">
-          I help startups and businesses ship{" "}
-          <span className="text-foreground font-medium">custom mobile apps</span>,{" "}
-          <span className="text-foreground font-medium">web apps</span>,{" "}
-          <span className="text-foreground font-medium">websites</span> and{" "}
-          <span className="text-foreground font-medium">SaaS products</span> that look premium and perform fast.
+          Looking to <span className="text-foreground font-medium">build a website</span>,{" "}
+          <span className="text-foreground font-medium">mobile app</span> or{" "}
+          <span className="text-foreground font-medium">software solution</span>? I build custom websites, web apps and apps for iOS & Android — hire a developer who ships.
         </p>
 
         {/* Badges */}

@@ -37,12 +37,11 @@ const ContactSection = () => {
     <section id="contact" ref={sectionRef} className="section-padding noise-bg relative min-h-screen flex items-center">
       <div className="max-w-4xl mx-auto text-center w-full">
         <h2 className="reveal-contact text-4xl md:text-7xl font-heading font-bold tracking-tight mb-6">
-          Let's Build Something <span className="text-gradient">Amazing</span>
+          Ready to Build Your <span className="text-gradient">Website, App or Software?</span>
         </h2>
 
         <p className="reveal-contact text-lg text-muted-foreground font-body mb-12 max-w-lg mx-auto">
-          Have an idea for a mobile app, web app, website or SaaS product? Share a few details and I'll reply
-          with a clear, actionable plan.
+          Need someone to build a website, mobile app or software solution? Share your idea and I'll reply with a clear plan and next steps.
         </p>
 
         <a

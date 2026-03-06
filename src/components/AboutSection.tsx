@@ -46,19 +46,13 @@ const AboutSection = () => {
 
         <div className="reveal text-lg md:text-xl text-muted-foreground leading-relaxed space-y-6 font-body max-w-3xl">
           <p>
-            I'm a <span className="text-foreground font-medium">Frontend Engineer</span> with <span className="text-foreground font-medium">3.10+ years</span> of experience who thrives at the intersection
-            of design and code. I specialize in building visually stunning, high-performance digital products — from
-            marketing websites and dashboards to full web apps and SaaS platforms.
+            If you're looking to <span className="text-foreground font-medium">build a website</span>, <span className="text-foreground font-medium">mobile app</span> or <span className="text-foreground font-medium">software solution</span>, I'm a developer for hire with 3.10+ years of experience. I build custom websites, web apps, iOS/Android apps and SaaS products — from idea to launch.
           </p>
           <p>
-            With deep expertise in <span className="text-foreground font-medium">React.js, Next.js, React Native & Flutter</span>,
-            I architect full-stack solutions using BaaS platforms like Supabase and Firestore — shipping everything
-            from <span className="text-foreground font-medium">custom mobile apps</span> to <span className="text-foreground font-medium">production-ready web applications and software</span> used by
-            real users.
+            I use <span className="text-foreground font-medium">React.js, Next.js, React Native & Flutter</span> with Supabase and Firestore to ship production-ready software. Whether you need a landing page, a full web application or an app on the stores, I handle design, development and deployment.
           </p>
           <p>
-            I'm also an expert in <span className="text-foreground font-medium">app deployment</span> — from Google Play Store Console to Apple App Store Connect,
-            I handle the full lifecycle of mobile app publishing.
+            I also handle <span className="text-foreground font-medium">app store publishing</span> — Google Play Console and Apple App Store Connect — so your mobile app goes live end-to-end.
           </p>
         </div>
 
