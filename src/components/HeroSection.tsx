@@ -77,21 +77,37 @@ const HeroSection = () => {
         </h1>
 
         {/* Subtitle */}
-        <p ref={subtitleRef} className="text-lg md:text-xl text-muted-foreground max-w-xl font-body">
-          Looking to <span className="text-foreground font-medium">build a website</span>,{" "}
-          <span className="text-foreground font-medium">mobile app</span> or{" "}
-          <span className="text-foreground font-medium">software solution</span>? I build custom websites, web apps and apps for iOS & Android — hire a developer who ships.
+        <p ref={subtitleRef} className="text-lg md:text-xl text-muted-foreground max-w-2xl font-body">
+          I help companies ship fast, reliable products with clean UX. From websites and SaaS platforms to iOS/Android apps,
+          I build end-to-end solutions using modern engineering and AI-assisted workflows.
         </p>
 
         {/* Badges */}
         <div ref={badgesRef} className="flex flex-wrap justify-center gap-3 mt-4">
-          {["React.js", "Next.js", "React Native", "Flutter", "Supabase"].map((tech) => (
+          {["React.js", "Next.js", "React Native", "Flutter", "Node.js", "Claude Code"].map((tech) => (
             <span key={tech} className="skill-pill">{tech}</span>
           ))}
         </div>
 
+        <div className="flex flex-col sm:flex-row items-center gap-3 mt-2">
+          <a
+            href="#projects"
+            className="px-6 py-3 rounded-full text-sm font-heading font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+          >
+            View Problem-Solving Projects
+          </a>
+          <a
+            href={`https://wa.me/919562770397?text=${encodeURIComponent("Hi CvSuhail, we are hiring and would like to discuss a developer role.")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-3 rounded-full text-sm font-heading font-semibold glass-card gold-border-hover text-foreground"
+          >
+            Discuss Hiring on WhatsApp
+          </a>
+        </div>
+
         {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+        <div className="absolute bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
           <span className="text-xs text-muted-foreground font-body tracking-widest uppercase">Scroll</span>
           <div className="w-px h-10 bg-gradient-to-b from-primary/60 to-transparent animate-pulse-gold" />
         </div>

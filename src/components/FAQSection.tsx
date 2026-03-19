@@ -1,5 +1,20 @@
 const faqs = [
   {
+    question: "Can you work as a developer in a company team?",
+    answer:
+      "Yes. I work well in product teams and can own features end-to-end, collaborate with designers and stakeholders, and ship production-ready releases with clear communication.",
+  },
+  {
+    question: "Can you build fast using AI tools like Claude Code and Cursor?",
+    answer:
+      "Absolutely. I use Claude Code, Cursor, Antigravity, and Lovable as AI development accelerators for planning, coding, refactoring, and QA. This helps deliver faster while keeping strong engineering quality.",
+  },
+  {
+    question: "Can you build any type of product?",
+    answer:
+      "I can build websites, web apps, SaaS products, mobile apps, internal tools, and custom software systems from scratch to deployment. You can bring me the problem, and I can build the solution.",
+  },
+  {
     question: "Who can build a website for my business?",
     answer:
       "I build custom websites for businesses — from marketing sites and landing pages to full web applications. Share your goals and I'll propose a plan and timeline. Contact me via the link below to get started.",

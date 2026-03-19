@@ -1,52 +1,20 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-
 const skills = {
   "Frontend": ["React.js", "Next.js", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "GSAP", "Framer Motion"],
   "Mobile": ["React Native", "Flutter", "Dart", "iOS", "Android"],
-  "Backend & BaaS": ["Supabase", "Firebase", "Firestore", "Node.js (Beginner)", "REST APIs"],
-  "Deployment & Tools": ["Play Store Console", "App Store Connect", "Git", "Figma", "VS Code", "Vercel"],
+  "Backend & BaaS": ["Node.js", "Supabase", "Express.js", "Firebase", "REST APIs"],
+  "AI Development Tools": ["Claude Code", "Cursor", "Antigravity", "Lovable"],
+  "Deployment & Tools": ["Play Store Console", "App Store Connect", "Git", "Figma", "VS Code", "Vercel", "AWS", "Docker", "CI/CD", "Nginx", "Fastlane", "Firebase Hosting", "Azure"],
 };
 
 const SkillsSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const cards = sectionRef.current?.querySelectorAll(".skill-group");
-    if (!cards) return;
-
-    cards.forEach((card, i) => {
-      gsap.fromTo(
-        card,
-        { y: 80, opacity: 0, scale: 0.95 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.7,
-          delay: i * 0.08,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-  }, []);
-
   return (
-    <section id="skills" ref={sectionRef} className="section-padding noise-bg relative">
+    <section id="skills" className="section-padding noise-bg relative">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-4">
           Skills & <span className="text-gradient">Expertise</span>
         </h2>
-        <p className="text-muted-foreground font-body text-lg mb-16 max-w-xl">
-          A curated toolkit refined over years of building products people love.
+        <p className="text-muted-foreground font-body text-lg mb-16 max-w-3xl">
+          This is the stack I use to move from idea to production quickly. I combine strong engineering foundations with AI development tools to build faster without compromising quality.
         </p>
 
         <div className="grid md:grid-cols-2 gap-6">

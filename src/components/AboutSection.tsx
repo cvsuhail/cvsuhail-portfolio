@@ -1,35 +1,4 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-
 const AboutSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const els = sectionRef.current?.querySelectorAll(".reveal");
-    if (!els) return;
-
-    els.forEach((el) => {
-      gsap.fromTo(
-        el,
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-  }, []);
-
   const stats = [
     { value: "3.10+", label: "Years Experience" },
     { value: "15+", label: "Projects Shipped" },
@@ -38,7 +7,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" ref={sectionRef} className="section-padding noise-bg relative">
+    <section id="about" className="section-padding noise-bg relative">
       <div className="max-w-5xl mx-auto">
         <h2 className="reveal text-4xl md:text-6xl font-heading font-bold tracking-tight mb-12">
           About <span className="text-gradient">Me</span>
@@ -46,13 +15,16 @@ const AboutSection = () => {
 
         <div className="reveal text-lg md:text-xl text-muted-foreground leading-relaxed space-y-6 font-body max-w-3xl">
           <p>
-            If you're looking to <span className="text-foreground font-medium">build a website</span>, <span className="text-foreground font-medium">mobile app</span> or <span className="text-foreground font-medium">software solution</span>, I'm a developer for hire with 3.10+ years of experience. I build custom websites, web apps, iOS/Android apps and SaaS products — from idea to launch.
+            I'm a product-focused developer with 3.10+ years of experience building software that solves real business problems. I take ownership from planning to launch and deliver production-ready outcomes.
           </p>
           <p>
-            I use <span className="text-foreground font-medium">React.js, Next.js, React Native & Flutter</span> with Supabase and Firestore to ship production-ready software. Whether you need a landing page, a full web application or an app on the stores, I handle design, development and deployment.
+            I use <span className="text-foreground font-medium">React.js, Next.js, React Native, Flutter, Supabase and Firebase</span> to build websites, web apps, SaaS products, and mobile apps that are scalable and maintainable.
           </p>
           <p>
-            I also handle <span className="text-foreground font-medium">app store publishing</span> — Google Play Console and Apple App Store Connect — so your mobile app goes live end-to-end.
+            I also leverage <span className="text-foreground font-medium">Claude Code, Cursor, Antigravity and Lovable</span> to speed up delivery, reduce iteration cycles, and maintain quality at scale. If your team needs a developer who can build anything end-to-end, I'm ready.
+          </p>
+          <p>
+            I handle <span className="text-foreground font-medium">deployment and app store publishing</span> too — including Google Play Console and Apple App Store Connect — so your product reaches users without handoff friction.
           </p>
         </div>
 

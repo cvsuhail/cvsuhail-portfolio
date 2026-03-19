@@ -1,264 +1,137 @@
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ExternalLink, Building2, User, Clock } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const personalProjects = [
+const projects = [
   {
-    title: "Peedia Online",
-    description: "An e-commerce SaaS platform — anyone can build their own e-commerce website, mobile app, and WhatsApp chat commerce.",
+    title: "PeediaOnline",
+    summary: "A commerce platform for small and mid businesses that want to sell faster without expensive custom development.",
+    problem:
+      "Many local businesses lose sales because building a website, app, and WhatsApp ordering flow usually needs multiple tools, high budgets, and technical teams.",
+    fix:
+      "We unified storefront setup, mobile experience, and chat-commerce into one SaaS workflow so merchants can launch quickly and manage sales from a single place.",
     tags: ["SaaS", "E-commerce", "React", "Supabase"],
     url: "https://peedia.online/",
     featured: true,
   },
   {
     title: "AppReady",
-    description: "A helper tool for 14-day closed testing for individual Play Console owners. Simplifies the app publishing process.",
+    summary: "A launch-assist product for indie developers trying to pass Google Play's closed testing requirement.",
+    problem:
+      "Individual developers often get stuck in the 14-day closed testing step, delaying releases and reducing momentum before the product reaches real users.",
+    fix:
+      "We built a guided system that helps founders prepare testing, track requirements, and move confidently toward production publishing with less confusion.",
     tags: ["Tool", "React", "Play Console"],
     url: "https://apprdy.awwads.in/",
     featured: true,
   },
   {
-    title: "Nidhi",
-    description: "A Flutter app available on iOS & Android for checking Kerala lottery results with a clean, intuitive interface.",
-    tags: ["Flutter", "iOS", "Android"],
-    url: "#",
-    featured: true,
-    comingSoon: true,
-  },
-  {
-    title: "Reelman Bespoke",
-    description: "Premium landing page with bespoke design and smooth interactions.",
-    tags: ["Landing Page", "Design"],
-    url: "https://reelman-bespoke.awwads.in/",
-  },
-  {
-    title: "Awwads Studio",
-    description: "Agency portfolio showcasing creative digital work.",
-    tags: ["Portfolio", "Design"],
-    url: "https://www.awwads.in/",
-  },
-  {
-    title: "Chat Flow Builder",
-    description: "Visual chatbot flow builder with drag-and-drop interface.",
-    tags: ["React", "Tool", "UI"],
-    url: "https://chat-flow-builder-nine.vercel.app/",
-  },
-  {
-    title: "BHK Kochi Tour Cabs",
-    description: "Tour & cab booking website with modern UI.",
-    tags: ["Business", "Landing Page"],
-    url: "https://www.bhkochitourcabs.com/",
-  },
-];
-
-const companyProjects = [
-  {
     title: "Habilife",
-    description: "A comprehensive lifestyle and wellness platform designed for healthy living and habit tracking.",
+    summary: "A wellness platform focused on daily behavior change and healthier routines.",
+    problem:
+      "People struggle to maintain healthy habits because progress is hard to track, motivation drops quickly, and most tools feel overwhelming.",
+    fix:
+      "We designed a structured habit and lifestyle flow with simple tracking, clearer daily actions, and a user-friendly interface that encourages consistency.",
     tags: ["Web App", "React", "Health"],
     url: "https://habilife.app/",
     featured: true,
   },
   {
-    title: "Netor AI",
-    description: "AI-powered networking and intelligence platform for smarter business connections.",
+    title: "Netor",
+    summary: "An AI-powered networking workspace for finding relevant business opportunities faster.",
+    problem:
+      "Professionals waste time on low-value networking because discovering the right people, context, and opportunities is usually noisy and manual.",
+    fix:
+      "We built intelligent discovery and insight-driven workflows that reduce guesswork, helping users focus on high-intent connections and better collaboration.",
     tags: ["AI", "SaaS", "React"],
     url: "https://netor.ai/",
     featured: true,
   },
+  {
+    title: "OosiApp",
+    summary: "A ride-sharing platform for both carpooling and bike pooling in everyday commuting.",
+    problem:
+      "Daily travel costs, traffic, and last-mile transport gaps make commuting stressful, especially for students and working professionals.",
+    fix:
+      "We created a location-aware ride-sharing experience where users can post or join car and bike rides, reducing costs and improving travel convenience.",
+    tags: ["Carpooling", "Bike Sharing", "Web App"],
+    url: "https://oosi-app.vercel.app/",
+    featured: true,
+  },
 ];
 
-const ComingSoonModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
-      <div
-        className="relative glass-card gold-border p-8 md:p-12 text-center max-w-md w-full"
-        onClick={(e) => e.stopPropagation()}
-        style={{ boxShadow: "var(--gold-glow-strong)" }}
-      >
-        <div className="flex items-center justify-center mb-6">
-          <Clock className="w-12 h-12 text-primary animate-pulse" />
-        </div>
-        <h3 className="text-2xl md:text-3xl font-heading font-bold text-gradient mb-3">Coming Soon</h3>
-        <p className="text-muted-foreground font-body">
-          Preview of Nidhi app is on the way. Stay tuned for something awesome!
-        </p>
-        <button
-          onClick={onClose}
-          className="mt-6 px-6 py-2 rounded-full text-sm font-heading font-semibold bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
-        >
-          Got it
-        </button>
-      </div>
-    </div>
-  );
-};
-
 const ProjectsSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [showComingSoon, setShowComingSoon] = useState(false);
-  const [activeTab, setActiveTab] = useState<"personal" | "company">("personal");
-
-  useEffect(() => {
-    const cards = sectionRef.current?.querySelectorAll(".proj-card");
-    if (!cards) return;
-
-    cards.forEach((card, i) => {
-      gsap.fromTo(
-        card,
-        { y: 100, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          delay: i * 0.06,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-  }, [activeTab]);
-
-  const handleProjectClick = (e: React.MouseEvent, project: typeof personalProjects[0]) => {
-    if ('comingSoon' in project && project.comingSoon) {
-      e.preventDefault();
-      setShowComingSoon(true);
-    }
-  };
-
-  const currentProjects = activeTab === "personal" ? personalProjects : companyProjects;
-
   return (
-    <section id="projects" ref={sectionRef} className="section-padding noise-bg relative">
+    <section id="projects" className="section-padding noise-bg relative">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-4">
-          {activeTab === "personal" ? "Personal" : "Company"}{" "}
           <span className="text-gradient">Projects</span>
         </h2>
-        <p className="text-muted-foreground font-body text-lg mb-8 max-w-xl">
-          {activeTab === "personal"
-            ? "Products, platforms & experiences I've designed and engineered."
-            : "Professional projects I've contributed to at companies."}
+        <p className="text-muted-foreground font-body text-lg mb-10 max-w-3xl">
+          Every product here is built to solve a real-world problem. I focus on understanding pain points first,
+          then designing and engineering clear, scalable solutions with clean UX and business impact.
         </p>
-
-        {/* Tabs */}
-        <div className="flex gap-3 mb-12">
-          <button
-            onClick={() => setActiveTab("personal")}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-heading font-semibold transition-all duration-300 ${
-              activeTab === "personal"
-                ? "bg-primary text-primary-foreground"
-                : "glass-card gold-border-hover text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <User className="w-4 h-4" />
-            Personal
-          </button>
-          <button
-            onClick={() => setActiveTab("company")}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-heading font-semibold transition-all duration-300 ${
-              activeTab === "company"
-                ? "bg-primary text-primary-foreground"
-                : "glass-card gold-border-hover text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Building2 className="w-4 h-4" />
-            Company
-          </button>
-        </div>
 
         {/* Featured */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
-          {currentProjects.filter((p) => p.featured).map((project) => (
+          {projects.filter((p) => p.featured).map((project, index) => (
             <a
               key={project.title}
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => handleProjectClick(e, project)}
-              className="proj-card project-card p-8 flex flex-col justify-between group relative"
+              className="proj-card project-card p-0 flex flex-col justify-between group relative isolate"
             >
-              {'comingSoon' in project && project.comingSoon && (
-                <div className="absolute top-4 right-4">
-                  <span className="text-xs px-3 py-1 rounded-full font-heading font-semibold bg-primary/20 text-primary border border-primary/30">
-                    Coming Soon
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary/20 via-primary to-primary/20" />
+              <div className="absolute -top-20 -right-16 w-44 h-44 rounded-full bg-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className="p-7 md:p-8 space-y-5">
+                <div className="flex items-start justify-between mb-2">
+                  <span className="text-[11px] uppercase tracking-[0.18em] font-heading text-primary/90 bg-primary/10 border border-primary/20 px-3 py-1 rounded-full">
+                    Project {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[11px] uppercase tracking-[0.16em] font-heading text-muted-foreground group-hover:text-primary transition-colors">
+                    View Live
                   </span>
                 </div>
-              )}
-              <div>
-                <div className="flex items-start justify-between mb-4">
+
+                <div className="flex items-start justify-between gap-3">
                   <h3 className="text-xl font-heading font-semibold text-foreground group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
-                  {!('comingSoon' in project && project.comingSoon) && (
-                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-1" />
-                  )}
+                  <div className="w-8 h-8 rounded-full border border-border/80 bg-secondary/50 flex items-center justify-center group-hover:border-primary/40 group-hover:bg-primary/10 transition-all">
+                    <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                  </div>
                 </div>
-                <p className="text-muted-foreground text-sm font-body leading-relaxed mb-6">
-                  {project.description}
+                <p className="text-muted-foreground text-sm font-body leading-relaxed">
+                  {project.summary}
                 </p>
+
+                <div className="rounded-xl border border-border/60 bg-secondary/40 p-4">
+                  <p className="text-[11px] uppercase tracking-[0.16em] font-heading text-primary mb-2">Real-World Problem</p>
+                  <p className="text-sm text-muted-foreground font-body leading-relaxed">{project.problem}</p>
+                </div>
+
+                <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+                  <p className="text-[11px] uppercase tracking-[0.16em] font-heading text-primary mb-2">How We Fix It</p>
+                  <p className="text-sm text-muted-foreground font-body leading-relaxed">{project.fix}</p>
+                </div>
               </div>
-              <div className="flex flex-wrap gap-2">
+
+              <div className="px-7 md:px-8 pb-7 md:pb-8 pt-2 border-t border-border/50 bg-gradient-to-b from-transparent to-secondary/20">
+                <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs px-3 py-1 rounded-full font-body bg-secondary text-muted-foreground"
+                    className="text-xs px-3 py-1 rounded-full font-body bg-secondary/80 border border-border/70 text-muted-foreground group-hover:border-primary/30 group-hover:text-foreground transition-colors"
                   >
                     {tag}
                   </span>
                 ))}
+                </div>
               </div>
             </a>
           ))}
         </div>
-
-        {/* Other projects */}
-        {currentProjects.filter((p) => !p.featured).length > 0 && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {currentProjects.filter((p) => !p.featured).map((project) => (
-              <a
-                key={project.title}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="proj-card project-card p-6 group"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-base font-heading font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {project.title}
-                  </h3>
-                  <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0 mt-0.5" />
-                </div>
-                <p className="text-muted-foreground text-sm font-body leading-relaxed mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-0.5 rounded-full font-body bg-secondary text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </a>
-            ))}
-          </div>
-        )}
       </div>
-
-      <ComingSoonModal isOpen={showComingSoon} onClose={() => setShowComingSoon(false)} />
     </section>
   );
 };

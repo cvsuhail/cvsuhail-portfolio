@@ -1,9 +1,4 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Globe, Smartphone, Code2 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const services = [
   {
@@ -27,34 +22,8 @@ const services = [
 ];
 
 const ServicesSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const cards = sectionRef.current?.querySelectorAll(".service-card");
-    if (!cards.length) return;
-
-    cards.forEach((card, i) => {
-      gsap.fromTo(
-        card,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          delay: i * 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-  }, []);
-
   return (
-    <section id="services" ref={sectionRef} className="section-padding noise-bg relative">
+    <section id="services" className="section-padding noise-bg relative">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-4">
           What I <span className="text-gradient">Build</span>

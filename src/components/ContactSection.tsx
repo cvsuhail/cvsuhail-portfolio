@@ -1,47 +1,17 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Github, Linkedin, Mail, Twitter, MessageCircle } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { Github, Linkedin, Mail, MessageCircle } from "lucide-react";
 
 const ContactSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const els = sectionRef.current?.querySelectorAll(".reveal-contact");
-    if (!els) return;
-
-    els.forEach((el) => {
-      gsap.fromTo(
-        el,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-  }, []);
-
-  const whatsappUrl = `https://wa.me/919562770397?text=${encodeURIComponent("Hi CvSuhail, I found you through your portfolio and would love to connect!")}`;
+  const whatsappUrl = `https://wa.me/919562770397?text=${encodeURIComponent("Hi CvSuhail, I reviewed your portfolio and would like to discuss a project or developer hiring opportunity.")}`;
 
   return (
-    <section id="contact" ref={sectionRef} className="section-padding noise-bg relative min-h-screen flex items-center">
+    <section id="contact" className="section-padding noise-bg relative min-h-screen flex items-center">
       <div className="max-w-4xl mx-auto text-center w-full">
         <h2 className="reveal-contact text-4xl md:text-7xl font-heading font-bold tracking-tight mb-6">
-          Ready to Build Your <span className="text-gradient">Website, App or Software?</span>
+          Need a Developer Who Can <span className="text-gradient">Build Anything?</span>
         </h2>
 
-        <p className="reveal-contact text-lg text-muted-foreground font-body mb-12 max-w-lg mx-auto">
-          Need someone to build a website, mobile app or software solution? Share your idea and I'll reply with a clear plan and next steps.
+        <p className="reveal-contact text-lg text-muted-foreground font-body mb-12 max-w-2xl mx-auto">
+          Hiring for a product role or planning a new build? Share your goals, timeline, and scope. I'll respond with a practical execution plan and clear next steps.
         </p>
 
         <a
@@ -52,7 +22,7 @@ const ContactSection = () => {
           style={{ boxShadow: "var(--gold-glow-strong)" }}
         >
           <MessageCircle className="w-5 h-5" />
-          Get In Touch
+          Start Hiring Conversation
         </a>
 
         {/* Social links */}
@@ -60,7 +30,6 @@ const ContactSection = () => {
           {[
             { icon: Github, label: "GitHub", url: "https://github.com/cvsuhail" },
             { icon: Linkedin, label: "LinkedIn", url: "https://linkedin.com/in/suhailcv/" },
-            { icon: Twitter, label: "Twitter", url: "https://twitter.com/cvsuhail" },
             { icon: Mail, label: "Email", url: "mailto:cvsuhail.ckd@gmail.com" },
           ].map(({ icon: Icon, label, url }) => (
             <a

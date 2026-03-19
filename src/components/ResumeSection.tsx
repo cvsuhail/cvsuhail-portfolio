@@ -1,9 +1,4 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Briefcase, GraduationCap, Code2, Smartphone, Server, Wrench } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
@@ -28,34 +23,8 @@ const skillCategories = [
 ];
 
 const ResumeSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const els = sectionRef.current?.querySelectorAll(".resume-reveal");
-    if (!els) return;
-
-    els.forEach((el, i) => {
-      gsap.fromTo(
-        el,
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          delay: i * 0.06,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-  }, []);
-
   return (
-    <section id="resume" ref={sectionRef} className="section-padding noise-bg relative">
+    <section id="resume" className="section-padding noise-bg relative">
       <div className="max-w-5xl mx-auto">
         <h2 className="resume-reveal text-4xl md:text-6xl font-heading font-bold tracking-tight mb-4">
           <span className="text-gradient">Resume</span>

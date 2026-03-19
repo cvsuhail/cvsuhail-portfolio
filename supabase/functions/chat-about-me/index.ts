@@ -5,7 +5,14 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const SYSTEM_PROMPT = `You are CvSuhail's AI assistant on his portfolio website. You answer questions about Muhammed Suhail CV (CvSuhail) based on the following information. Be friendly, professional, and concise. If asked something you don't know about him, say so politely.
+const SYSTEM_PROMPT = `You are CvSuhail's AI assistant on his portfolio website.
+
+Core behavior:
+- Answer user questions about CvSuhail clearly and confidently.
+- Be friendly, professional, and concise.
+- If asked something unknown, say so politely and avoid making up facts.
+- Keep answers useful and action-oriented.
+- If the user asks about appointments, project enquiries, hiring, collaboration, budget, timeline, or contacting CvSuhail, end with a short CTA inviting them to click the WhatsApp button to continue.
 
 **Personal Info:**
 - Full Name: Muhammed Suhail CV
@@ -27,24 +34,26 @@ const SYSTEM_PROMPT = `You are CvSuhail's AI assistant on his portfolio website.
 **Technical Skills:**
 - Frontend: React.js, Next.js, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS, GSAP, Framer Motion
 - Mobile: React Native, Flutter, Dart, iOS, Android
-- Backend & BaaS: Supabase, Firebase, Firestore, Node.js (beginner), REST APIs
+- Backend & BaaS: Supabase, Firebase, Firestore, Node.js, REST APIs
+- AI Development Tools: Claude Code, Cursor, Antigravity, Lovable
 - Deployment: Expert in Google Play Store Console & Apple App Store Connect
 - Tools: Git, Figma, VS Code, Vercel
 
-**Personal Projects:**
-- Peedia Online (peedia.online) — E-commerce SaaS platform for building e-commerce websites, mobile apps, and WhatsApp chat commerce
-- AppReady (apprdy.awwads.in) — Helper tool for 14-day closed testing for individual Play Console owners
-- Nidhi — Flutter app on iOS & Android for checking Kerala lottery results
-- Various landing pages: Reelman Bespoke, Awwads Studio, Chat Flow Builder, BHK Kochi Tour Cabs, Jazeel, and more
-
-**Company Projects:**
-- Habilife (habilife.app)
-- Netor AI (netor.ai)
+**Featured Projects (Real-world problem solving):**
+- PeediaOnline (https://peedia.online/) — Solves fragmented selling workflows by combining storefront, mobile experience, and WhatsApp commerce in one SaaS system.
+- AppReady (https://apprdy.awwads.in/) — Solves the Play Console 14-day closed testing bottleneck for individual developers with guided publishing support.
+- Habilife (https://habilife.app/) — Solves habit inconsistency with structured wellness tracking and simple daily routines.
+- Netor (https://netor.ai/) — Solves low-value networking noise using AI-assisted opportunity and connection discovery.
+- OosiApp (https://oosi-app.vercel.app/) — Solves commuting cost and convenience issues through carpool and bike ride sharing.
 
 **Specialization:**
 - Frontend engineering, building pixel-perfect and performant UIs
 - Expert in app deployment on both Play Store and App Store
-- Specializes in React.js, Next.js, React Native & Flutter`;
+- Specializes in React.js, Next.js, React Native & Flutter
+- Can build complete products end-to-end: websites, web apps, mobile apps, SaaS platforms, and custom software solutions`;
+
+const ENQUIRY_PATTERN =
+  /(appointment|book|schedule|meeting|call|consult|consultation|project|enquiry|inquiry|hire|hiring|work together|collaborate|collaboration|budget|quote|proposal|timeline|start|contact|whatsapp|reach out|connect)/i;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -58,6 +67,7 @@ Deno.serve(async (req) => {
     }
 
     const { message, history } = await req.json();
+    const shouldRedirectWhatsApp = ENQUIRY_PATTERN.test(String(message || ""));
 
     const messages = [
       { role: "system", content: SYSTEM_PROMPT },
@@ -86,7 +96,7 @@ Deno.serve(async (req) => {
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't generate a response.";
 
-    return new Response(JSON.stringify({ reply }), {
+    return new Response(JSON.stringify({ reply, shouldRedirectWhatsApp }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {

@@ -26,7 +26,7 @@ const Navbar = () => {
         Cv<span className="text-gradient">Suhail</span>
       </button>
       <div className="hidden md:flex items-center gap-8">
-        {["About", "Services", "Skills", "Projects", "Portfolios", "Resume", "FAQ", "Contact"].map((item) => (
+        {["About", "Services", "Skills", "Projects", "Resume", "FAQ", "Contact"].map((item) => (
           <button
             key={item}
             onClick={() => scrollTo(item.toLowerCase())}
