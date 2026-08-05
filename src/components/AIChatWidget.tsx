@@ -1,5 +1,18 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Bot, User, Sparkles } from "lucide-react";
+import {
+  MessageCircle,
+  X,
+  Send,
+  Bot,
+  User,
+  Sparkles,
+  RotateCcw,
+  ArrowLeft,
+  Zap,
+  Briefcase,
+  Code2,
+  Heart,
+} from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import MobileBottomNav from "./MobileBottomNav";
 
@@ -55,13 +68,36 @@ PROJECTS & LINKS:
 - Reelman Bespoke (https://reelmanbespoke.com)
 - Yas Orcin (https://yas-orcin.vercel.app)`;
 
+const QUICK_PROMPTS = [
+  {
+    icon: Code2,
+    label: "Tech Stack",
+    prompt: "What is CvSuhail's primary tech stack and favorite frontend tools?",
+  },
+  {
+    icon: Briefcase,
+    label: "Hire / Projects",
+    prompt: "Is CvSuhail available for freelance projects or full-time tech roles?",
+  },
+  {
+    icon: Zap,
+    label: "Top SaaS Apps",
+    prompt: "What featured SaaS applications and platforms has CvSuhail built?",
+  },
+  {
+    icon: Heart,
+    label: "About CvSuhail",
+    prompt: "Tell me about CvSuhail's bio, background, and personal journey.",
+  },
+];
+
 const AIChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
       content:
-        "Hey there! 👋 I'm CV's AI. What would you like to know about CvSuhail's work, projects, or how to hire him?",
+        "Hey there! 👋 I'm CV's AI. Ask me anything about CvSuhail's work, tech stack, projects, or how to hire him!",
     },
   ]);
   const [input, setInput] = useState("");
@@ -76,12 +112,12 @@ const AIChatWidget = () => {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, isLoading]);
 
   useEffect(() => {
     if (isOpen) inputRef.current?.focus();
 
-    // Lock body scroll on mobile when AI modal is open to prevent page bleeding
+    // Prevent background scrolling on mobile when modal is open
     if (isOpen && typeof window !== "undefined" && window.innerWidth < 768) {
       document.body.style.overflow = "hidden";
     } else {
@@ -108,22 +144,22 @@ Please let me know the next steps.`;
 
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsAppPrefill)}`;
 
-  const sendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+  const sendMessage = async (textToSend?: string) => {
+    const messageContent = (textToSend || input).trim();
+    if (!messageContent || isLoading) return;
 
-    const userMessage = input.trim();
-    setInput("");
-    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
+    if (!textToSend) setInput("");
+    setMessages((prev) => [...prev, { role: "user", content: messageContent }]);
     setIsLoading(true);
 
     const history = messages
       .filter((m) => m.role !== "assistant" || messages.indexOf(m) !== 0)
       .map((m) => ({ role: m.role, content: m.content }));
 
-    const shouldShowCTA = isEnquiryIntent(userMessage);
+    const shouldShowCTA = isEnquiryIntent(messageContent);
     if (shouldShowCTA) {
       setShowWhatsAppCTA(true);
-      setWhatsAppPrefill(buildWhatsAppPrefill(userMessage));
+      setWhatsAppPrefill(buildWhatsAppPrefill(messageContent));
     }
 
     try {
@@ -138,7 +174,7 @@ Please let me know the next steps.`;
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
             ...history,
-            { role: "user", content: userMessage },
+            { role: "user", content: messageContent },
           ],
           temperature: 0.7,
         }),
@@ -157,7 +193,7 @@ Please let me know the next steps.`;
     } catch (err) {
       console.error("AI Chat Error:", err);
       const fallbackReply = `I'm having trouble reaching my AI backend right now. Message CvSuhail directly on WhatsApp:\n\n[Chat on WhatsApp (+91 95627 70397)](https://wa.me/919562770397?text=${encodeURIComponent(
-        buildWhatsAppPrefill(userMessage)
+        buildWhatsAppPrefill(messageContent)
       )})`;
       setMessages((prev) => [...prev, { role: "assistant", content: fallbackReply }]);
       setShowWhatsAppCTA(true);
@@ -166,9 +202,20 @@ Please let me know the next steps.`;
     }
   };
 
+  const handleReset = () => {
+    setMessages([
+      {
+        role: "assistant",
+        content:
+          "Hey there! 👋 I'm CV's AI. Ask me anything about CvSuhail's work, tech stack, projects, or how to hire him!",
+      },
+    ]);
+    setShowWhatsAppCTA(false);
+  };
+
   return (
     <>
-      {/* Desktop Floating Action Trigger */}
+      {/* Desktop Floating Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="hidden md:flex fixed bottom-6 right-6 z-50 items-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground font-heading font-semibold text-xs lg:text-sm hover:scale-105 transition-all duration-300 shadow-2xl cursor-pointer"
@@ -181,52 +228,98 @@ Please let me know the next steps.`;
             <span>Close Chat</span>
           </>
         ) : (
-          <span>Chat with CV's AI to know more about him</span>
+          <>
+            <Sparkles className="w-4 h-4 text-primary-foreground animate-pulse" />
+            <span>Chat with CV's AI</span>
+          </>
         )}
       </button>
 
-      {/* AI Chat Modal (FULLSCREEN 100dvh on Mobile, Popup on Desktop) */}
+      {/* AI Chat Screen Modal (Full Native Mobile Screen on Mobile, Popover Card on Desktop) */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 w-full h-[100dvh] md:h-[520px] md:inset-auto md:bottom-24 md:right-6 md:w-[380px] md:rounded-2xl overflow-hidden flex flex-col transition-all duration-300 bg-background border border-primary/30 shadow-2xl"
+          className="fixed inset-0 z-50 w-full h-[100dvh] md:h-[540px] md:inset-auto md:bottom-24 md:right-6 md:w-[400px] md:rounded-2xl overflow-hidden flex flex-col transition-all duration-300 bg-background border-0 md:border md:border-primary/30 shadow-2xl"
           style={{
-            boxShadow: "0 25px 70px hsl(0 0% 0% / 0.8), var(--gold-glow)",
+            boxShadow: "0 25px 70px hsl(0 0% 0% / 0.85), var(--gold-glow)",
           }}
         >
-          {/* Header Bar */}
-          <div className="p-4 border-b border-border/80 flex items-center justify-between bg-card/90 backdrop-blur-md shrink-0">
+          {/* Mobile Native App Bar / Top Header */}
+          <div className="p-3.5 sm:p-4 border-b border-border/80 flex items-center justify-between bg-card/95 backdrop-blur-xl shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
-                <Bot className="w-5 h-5 text-primary" />
+              {/* Back Button for Mobile */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="md:hidden p-1.5 rounded-full bg-secondary/80 text-muted-foreground hover:text-foreground active:scale-95 transition-all"
+                aria-label="Back"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+
+              <div className="relative">
+                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/40 shadow-inner">
+                  <Bot className="w-5 h-5 text-primary" />
+                </div>
+                {/* Active Online Status Indicator */}
+                <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-background animate-pulse" />
               </div>
+
               <div>
-                <p className="text-sm font-heading font-bold text-foreground">CV's AI Assistant</p>
-                <p className="text-xs text-muted-foreground font-body">Ask about CvSuhail's skills & work</p>
+                <div className="flex items-center gap-1.5">
+                  <h3 className="text-sm font-heading font-bold text-foreground tracking-tight">
+                    CV's AI Assistant
+                  </h3>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 font-mono">
+                    v2.0
+                  </span>
+                </div>
+                <p className="text-[11px] text-muted-foreground font-body flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+                  Online • Powered by DeepSeek
+                </p>
               </div>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="p-2 rounded-full bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors active:scale-95"
-              aria-label="Close Chat"
-            >
-              <X className="w-5 h-5" />
-            </button>
+
+            <div className="flex items-center gap-1">
+              {/* Reset Chat Button */}
+              <button
+                onClick={handleReset}
+                title="Reset Conversation"
+                className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary/60 active:scale-95 transition-all"
+                aria-label="Reset Chat"
+              >
+                <RotateCcw className="w-4 h-4" />
+              </button>
+
+              {/* Close Button (Desktop) */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="hidden md:block p-2 rounded-full bg-secondary/80 text-muted-foreground hover:text-foreground transition-colors active:scale-95"
+                aria-label="Close Chat"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          {/* Messages Container */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* Messages Body Area */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-background via-background to-card/30">
             {messages.map((msg, i) => (
-              <div key={i} className={`flex gap-2.5 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div
+                key={i}
+                className={`flex gap-2.5 ${
+                  msg.role === "user" ? "justify-end" : "justify-start"
+                }`}
+              >
                 {msg.role === "assistant" && (
-                  <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1 border border-primary/30">
+                  <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-1 border border-primary/30 shadow-sm">
                     <Bot className="w-3.5 h-3.5 text-primary" />
                   </div>
                 )}
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-3 text-xs sm:text-sm font-body leading-relaxed break-words [word-break:break-word] overflow-hidden ${
                     msg.role === "user"
-                      ? "bg-primary text-primary-foreground rounded-br-md shadow-md"
-                      : "bg-secondary text-foreground rounded-bl-md border border-border/50 shadow-sm"
+                      ? "bg-primary text-primary-foreground rounded-br-xs shadow-md font-medium"
+                      : "bg-secondary/90 text-foreground rounded-bl-xs border border-border/60 shadow-sm"
                   }`}
                 >
                   {msg.role === "assistant" ? (
@@ -238,23 +331,36 @@ Please let me know the next steps.`;
                   )}
                 </div>
                 {msg.role === "user" && (
-                  <div className="w-7 h-7 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-1">
-                    <User className="w-3.5 h-3.5 text-muted-foreground" />
+                  <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1 border border-primary/20">
+                    <User className="w-3.5 h-3.5 text-primary" />
                   </div>
                 )}
               </div>
             ))}
+
+            {/* AI Typing Indicator */}
             {isLoading && (
-              <div className="flex gap-2.5">
+              <div className="flex gap-2.5 items-center">
                 <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 border border-primary/30">
                   <Bot className="w-3.5 h-3.5 text-primary" />
                 </div>
-                <div className="bg-secondary rounded-2xl rounded-bl-md px-4 py-3">
-                  <div className="flex gap-2 items-center">
-                    <span className="text-xs text-muted-foreground font-body">CV's AI Thinking</span>
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style={{ animationDelay: "0ms" }} />
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style={{ animationDelay: "150ms" }} />
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce" style={{ animationDelay: "300ms" }} />
+                <div className="bg-secondary/90 rounded-2xl rounded-bl-xs px-4 py-3 border border-border/60">
+                  <div className="flex gap-1.5 items-center">
+                    <span className="text-xs text-muted-foreground font-body mr-1">
+                      Thinking
+                    </span>
+                    <div
+                      className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce"
+                      style={{ animationDelay: "0ms" }}
+                    />
+                    <div
+                      className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce"
+                      style={{ animationDelay: "150ms" }}
+                    />
+                    <div
+                      className="w-1.5 h-1.5 rounded-full bg-primary animate-bounce"
+                      style={{ animationDelay: "300ms" }}
+                    />
                   </div>
                 </div>
               </div>
@@ -262,42 +368,63 @@ Please let me know the next steps.`;
             <div ref={messagesEndRef} />
           </div>
 
-          {/* WhatsApp CTA Action */}
+          {/* Quick Action Prompt Chips (Scrollable Mobile Pills) */}
+          <div className="px-3 py-2 border-t border-border/40 bg-card/40 backdrop-blur-md shrink-0">
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+              {QUICK_PROMPTS.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => sendMessage(item.prompt)}
+                    disabled={isLoading}
+                    className="flex items-center gap-1.5 shrink-0 px-3 py-1.5 rounded-full bg-secondary/80 hover:bg-primary/20 border border-border/60 hover:border-primary/40 text-muted-foreground hover:text-primary text-[11px] font-heading font-medium transition-all active:scale-95 disabled:opacity-50"
+                  >
+                    <Icon className="w-3 h-3 text-primary" />
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* WhatsApp Direct Action CTA */}
           {showWhatsAppCTA && (
-            <div className="px-4 py-2.5 border-t border-border/70 bg-background/80 shrink-0">
+            <div className="px-3.5 py-2.5 border-t border-border/70 bg-primary/5 shrink-0">
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary text-xs md:text-sm text-primary-foreground font-heading font-semibold px-4 py-2.5 hover:opacity-90 transition-colors shadow-md"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-heading font-semibold px-4 py-2.5 transition-colors shadow-lg active:scale-98"
               >
-                <MessageCircle className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4 fill-white" />
                 <span>Chat Directly on WhatsApp</span>
               </a>
             </div>
           )}
 
-          {/* Input Form Bar with Mobile Safe-Area Padding */}
-          <div className="p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] border-t border-border bg-background/95 shrink-0">
+          {/* Input Form Bar (Mobile Safe Area Compliant) */}
+          <div className="p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] border-t border-border bg-card/95 shrink-0">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 sendMessage();
               }}
-              className="flex gap-2"
+              className="flex gap-2 items-center"
             >
               <input
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about skills, projects, or hire..."
-                className="flex-1 bg-secondary rounded-full px-4 py-3 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground font-body outline-none border border-border focus:border-primary/60 transition-colors"
+                placeholder="Ask about skills, hire, or projects..."
+                className="flex-1 bg-secondary/90 rounded-full px-4 py-3 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground font-body outline-none border border-border/80 focus:border-primary transition-colors"
                 disabled={isLoading}
               />
               <button
                 type="submit"
                 disabled={isLoading || !input.trim()}
-                className="w-11 h-11 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity disabled:opacity-50 shrink-0 shadow-md active:scale-95"
+                className="w-11 h-11 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-90 transition-all disabled:opacity-40 shrink-0 shadow-md active:scale-95"
+                aria-label="Send message"
               >
                 <Send className="w-4 h-4" />
               </button>
@@ -306,7 +433,7 @@ Please let me know the next steps.`;
         </div>
       )}
 
-      {/* Mobile Bottom Navigation Bar */}
+      {/* Mobile Bottom Navigation Bar (Hidden when AI Chat screen is active) */}
       <MobileBottomNav onOpenAI={() => setIsOpen(true)} isAIOpen={isOpen} />
     </>
   );
