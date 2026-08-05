@@ -4,22 +4,22 @@ import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import HireSection from "@/components/HireSection";
 import ResumeSection from "@/components/ResumeSection";
 import ContactSection from "@/components/ContactSection";
 import AIChatWidget from "@/components/AIChatWidget";
-import FAQSection from "@/components/FAQSection";
 
 const Index = () => {
   return (
-    <main className="bg-background min-h-screen">
+    <main className="bg-background min-h-screen overflow-x-hidden w-full max-w-full relative">
       <Navbar />
       <HeroSection />
       <AboutSection />
       <ServicesSection />
       <SkillsSection />
       <ProjectsSection />
+      <HireSection />
       <ResumeSection />
-      <FAQSection />
       <ContactSection />
       <AIChatWidget />
     </main>

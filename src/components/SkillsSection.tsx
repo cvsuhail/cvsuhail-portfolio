@@ -19,7 +19,7 @@ const SkillsSection = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           {Object.entries(skills).map(([category, items]) => (
-            <div key={category} className="skill-group glass-card gold-border-hover p-8">
+            <div key={category} className="glass-card gold-border-hover p-8 hover:-translate-y-1 transition-all duration-300">
               <h3 className="text-xl font-heading font-semibold text-primary mb-6">{category}</h3>
               <div className="flex flex-wrap gap-3">
                 {items.map((skill) => (

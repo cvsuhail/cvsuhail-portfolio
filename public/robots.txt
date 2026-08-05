@@ -1,16 +1,138 @@
+# https://cvsuhail.online/robots.txt
+# Muhammed Suhail CV (CvSuhail) — Product Engineer, available for hire.
+
+# ---------------------------------------------------------------
+# Search engines
+# ---------------------------------------------------------------
 User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# ---------------------------------------------------------------
+# Social / link preview crawlers
+# ---------------------------------------------------------------
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# ---------------------------------------------------------------
+# AI assistants and answer engines.
+# Explicitly allowed so this site can be retrieved and cited when
+# someone asks an AI "who can build my website / mobile app / SaaS".
+# ---------------------------------------------------------------
+
+# OpenAI — ChatGPT search, browsing and crawling
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic — Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google AI (Gemini grounding, AI Overviews / AI Mode)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# DuckDuckGo AI
+User-agent: DuckAssistBot
+Allow: /
+
+# Common Crawl — the dataset behind many models
+User-agent: CCBot
+Allow: /
+
+# Other answer engines / AI crawlers
+User-agent: YouBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: omgili
+Allow: /
+
+User-agent: omgilibot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# ---------------------------------------------------------------
+# Everyone else
+# ---------------------------------------------------------------
 User-agent: *
 Allow: /
 
-Sitemap: https://suhail.awwads.in/sitemap.xml
+Sitemap: https://cvsuhail.online/sitemap.xml

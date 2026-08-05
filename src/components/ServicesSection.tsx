@@ -36,7 +36,7 @@ const ServicesSection = () => {
           {services.map(({ icon: Icon, title, description }) => (
             <article
               key={title}
-              className="service-card glass-card gold-border-hover p-6 md:p-8 flex flex-col"
+              className="glass-card gold-border-hover p-6 md:p-8 flex flex-col hover:-translate-y-1 transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/10 text-primary mb-6">
                 <Icon className="w-6 h-6" />
