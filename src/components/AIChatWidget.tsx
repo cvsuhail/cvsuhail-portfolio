@@ -24,7 +24,7 @@ ABOUT CVSUHAIL:
 - Instagram: https://www.instagram.com/stories.of.cv/
 
 PERSONAL & RELATIONSHIPS:
-- Lover / Partner: Shibila Sini (Initial: E.K. / Edakodamban) from Anakkayam, Manjeri. She is studying B.Com CA at Noble Women's College, Manjeri. Her Instagram: https://www.instagram.com/sxib.ila/
+- Wife / Partner: Shibila Sini (Initial: E.K. / Edakodamban) from Anakkayam, Manjeri. Their Nikkah was completed on January 31, 2025, and they are awaiting their wedding celebration! She is studying B.Com CA at Noble Women's College, Manjeri. Her Instagram: https://www.instagram.com/sxib.ila/
 - Family: Father Abdul Rahim CV, Mother Bushrathunneesa, Brother Hafiz Muhammed Swalih, Sisters Fathima Sahla & Husna Fathima (youngest).
 
 CURRENT ROLES & EXPERIENCE:
