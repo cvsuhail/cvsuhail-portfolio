@@ -6,34 +6,13 @@ const HeroSection = () => {
       id="hero"
       className="relative min-h-screen w-full flex flex-col justify-between noise-bg overflow-hidden pt-20 md:pt-24 pb-12"
     >
-      {/* Background Orange & Yellow Light Leak Glow Accents */}
-      <div
-        className="absolute top-10 left-1/2 -translate-x-1/2 w-[750px] sm:w-[900px] h-[550px] rounded-full opacity-30 blur-[130px] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, hsl(32 95% 55% / 0.55), hsl(43 90% 50% / 0.35), transparent 70%)",
-        }}
-      />
-      <div
-        className="absolute top-1/3 -left-20 w-[500px] h-[500px] rounded-full opacity-20 blur-[120px] pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, hsl(20 90% 50% / 0.4), transparent 70%)",
-        }}
-      />
-      <div
-        className="absolute top-1/4 -right-20 w-[500px] h-[500px] rounded-full opacity-25 blur-[120px] pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, hsl(45 95% 55% / 0.4), transparent 70%)",
-        }}
-      />
-
       {/* MAIN HERO CONTENT (ATTRACTIVELY CENTERED & BALANCED) */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col items-center text-center pt-2">
         {/* Main Hero DP Avatar */}
         <div id="hero-dp" className="relative inline-block group mb-6">
           <div
             className="w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full border-4 border-background overflow-hidden shadow-2xl bg-background relative z-10 transition-transform duration-300 group-hover:scale-[1.03]"
-            style={{ boxShadow: "0 18px 40px rgba(0,0,0,0.7), var(--gold-glow-strong)" }}
+            style={{ boxShadow: "0 18px 40px rgba(0,0,0,0.12), var(--gold-glow-strong)" }}
           >
             <img
               src="/dp.jpeg"

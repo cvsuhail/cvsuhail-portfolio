@@ -40,19 +40,29 @@ const skillCategories = [
   { icon: Layers, title: "Architecture", skills: "System design, multi-tenant SaaS, scalability, performance optimization, cloud-native design" },
 ];
 
-const ResumeSection = () => {
+const ResumeSection = ({ inSheet = false }: { inSheet?: boolean }) => {
+  // In the mobile bottom sheet the sheet header already titles it, so drop the
+  // big heading and the section's page-sized padding.
+  const card = inSheet ? "p-5" : "p-8";
   return (
-    <section id="resume" className="section-padding noise-bg relative">
+    <section
+      id="resume"
+      className={inSheet ? "px-4 pt-2 pb-6 relative" : "section-padding noise-bg relative"}
+    >
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-4">
-          <span className="text-gradient">Resume</span>
-        </h2>
-        <p className="text-muted-foreground font-body text-lg mb-16 max-w-xl">
-          A structured overview of my professional journey.
-        </p>
+        {!inSheet && (
+          <>
+            <h2 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-4">
+              <span className="text-gradient">Resume</span>
+            </h2>
+            <p className="text-muted-foreground font-body text-lg mb-16 max-w-xl">
+              A structured overview of my professional journey.
+            </p>
+          </>
+        )}
 
         {/* Experience */}
-        <div className="glass-card gold-border-hover p-8 mb-8">
+        <div className={`glass-card gold-border-hover ${card} ${inSheet ? "mb-4" : "mb-8"}`}>
           <div className="flex items-center gap-3 mb-6">
             <Briefcase className="w-6 h-6 text-primary" />
             <h3 className="text-2xl font-heading font-bold text-foreground">Experience</h3>
@@ -72,9 +82,9 @@ const ResumeSection = () => {
         </div>
 
         {/* Skills Grid */}
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className={`grid sm:grid-cols-2 ${inSheet ? "gap-3" : "gap-4"}`}>
           {skillCategories.map(({ icon: Icon, title, skills }) => (
-            <div key={title} className="glass-card gold-border-hover p-6">
+            <div key={title} className={`glass-card gold-border-hover ${inSheet ? "p-4" : "p-6"}`}>
               <div className="flex items-center gap-2 mb-3">
                 <Icon className="w-5 h-5 text-primary" />
                 <h4 className="font-heading font-semibold text-foreground">{title}</h4>
@@ -85,7 +95,7 @@ const ResumeSection = () => {
         </div>
 
         {/* Education */}
-        <div className="glass-card gold-border-hover p-8 mt-8">
+        <div className={`glass-card gold-border-hover ${card} ${inSheet ? "mt-4" : "mt-8"}`}>
           <div className="flex items-center gap-3 mb-4">
             <GraduationCap className="w-6 h-6 text-primary" />
             <h3 className="text-2xl font-heading font-bold text-foreground">Education</h3>

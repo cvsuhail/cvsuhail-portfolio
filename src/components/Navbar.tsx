@@ -1,14 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { MessageSquare } from "lucide-react";
+import { FileText, MessageSquare } from "lucide-react";
 
-const Navbar = () => {
+interface NavbarProps {
+  /** Phone layout: sections are tabs, so the brand goes home and a resume button shows. */
+  isPhone?: boolean;
+  activeTab?: string;
+  onHome?: () => void;
+  onOpenResume?: () => void;
+  /** Phone tab title shown in place of the brand (undefined on Home). */
+  title?: string;
+}
+
+const Navbar = ({ isPhone = false, activeTab, onHome, onOpenResume, title }: NavbarProps) => {
   const navRef = useRef<HTMLElement>(null);
   const navDpRef = useRef<HTMLDivElement>(null);
 
   const [scrolled, setScrolled] = useState(false);
   const [showNavDp, setShowNavDp] = useState(false);
   const showNavDpRef = useRef(false);
+  const handleScrollRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     // Entrance reveal for navbar
@@ -30,9 +41,8 @@ const Navbar = () => {
         const rect = heroDpEl.getBoundingClientRect();
         // Hero DP is visible if any part of it is below 70px (below top navbar)
         isHeroDpVisible = rect.bottom > 70;
-      } else {
-        isHeroDpVisible = scrollY <= 250;
       }
+      // No hero photo on screen (another phone tab is open): show the navbar DP.
 
       // 1. SHOW NAVBAR DP (Hero DP scrolled out of view) -> FAST 0.25s DROP ANIMATION
       if (!isHeroDpVisible && !showNavDpRef.current) {
@@ -83,11 +93,19 @@ const Navbar = () => {
       }
     };
 
+    handleScrollRef.current = handleScroll;
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // Switching phone tabs swaps the hero in or out without a scroll event,
+  // so re-check whether the navbar DP should show.
+  useEffect(() => {
+    const id = requestAnimationFrame(() => handleScrollRef.current());
+    return () => cancelAnimationFrame(id);
+  }, [activeTab]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -104,7 +122,7 @@ const Navbar = () => {
     >
       {/* Brand & Sticky DP Avatar Continuation (Always Reserved Fixed Box Space) */}
       <button
-        onClick={() => scrollTo("hero")}
+        onClick={() => (onHome ? onHome() : scrollTo("hero"))}
         className="flex items-center gap-2.5 group text-left focus:outline-none"
       >
         {/* Reserved Fixed Box Space for DP: Preserves navbar width so brand text never shifts */}
@@ -124,14 +142,23 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="flex flex-col">
-          <span className="font-heading text-base sm:text-lg font-bold tracking-tight text-foreground group-hover:text-primary transition-colors leading-none">
-            Cv<span className="text-gradient">Suhail</span>
+        {title ? (
+          <span
+            key={title}
+            className="font-heading text-lg font-bold tracking-tight text-foreground leading-none truncate animate-in fade-in-0 slide-in-from-bottom-1 duration-200"
+          >
+            {title}
           </span>
-          <span className="text-[10px] font-body text-muted-foreground hidden sm:inline-block">
-            Product Engineer
-          </span>
-        </div>
+        ) : (
+          <div className="flex flex-col">
+            <span className="font-heading text-base sm:text-lg font-bold tracking-tight text-foreground group-hover:text-primary transition-colors leading-none">
+              Cv<span className="text-gradient">Suhail</span>
+            </span>
+            <span className="text-[10px] font-body text-muted-foreground hidden sm:inline-block">
+              Product Engineer
+            </span>
+          </div>
+        )}
       </button>
 
       {/* Desktop Navigation Links */}
@@ -149,6 +176,16 @@ const Navbar = () => {
 
       {/* Quick Action Button (Visible on all screen sizes) */}
       <div className="flex items-center gap-2">
+        {isPhone && onOpenResume && (
+          <button
+            type="button"
+            onClick={onOpenResume}
+            aria-label="Open resume"
+            className="h-8 w-8 rounded-full border border-border bg-background text-foreground flex items-center justify-center active:scale-95 transition-transform"
+          >
+            <FileText className="w-4 h-4" />
+          </button>
+        )}
         <a
           href={`https://wa.me/919562770397?text=${encodeURIComponent("Hi CvSuhail, I would like to discuss a project or developer hiring role.")}`}
           target="_blank"

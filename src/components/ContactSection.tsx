@@ -18,8 +18,8 @@ const ContactSection = () => {
             fontSize="clamp(2rem, 6vw, 4.2rem)"
             fontWeight={700}
             fontFamily="'Space Grotesk', sans-serif"
-            color="#eab308"
-            highlightColor="#ffffff"
+            color="#0a0a0a"
+            highlightColor="#737373"
             density={3.5}
             scatter={120}
             pointerRepel={35}

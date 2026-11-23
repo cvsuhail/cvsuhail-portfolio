@@ -107,12 +107,6 @@ const FAQSection = () => {
 
   return (
     <section id="faq" className="section-padding noise-bg relative overflow-hidden">
-      {/* Glow background accent */}
-      <div
-        className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full opacity-15 blur-[120px] pointer-events-none"
-        style={{ background: "radial-gradient(circle, hsl(43 80% 55% / 0.4), transparent)" }}
-      />
-
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Header Badge */}
         <div className="flex items-center gap-2 px-3 py-1 rounded-full w-fit bg-primary/10 border border-primary/20 text-xs font-semibold text-primary mb-4">
@@ -172,7 +166,7 @@ const FAQSection = () => {
                   key={item.question}
                   className={`glass-card rounded-2xl transition-all duration-300 overflow-hidden ${
                     isOpen
-                      ? "border-primary/60 shadow-[0_0_25px_rgba(234,179,8,0.12)] bg-card/80"
+                      ? "border-primary/60 shadow-[0_0_25px_rgba(0,0,0,0.08)] bg-card/80"
                       : "gold-border-hover hover:border-primary/30"
                   }`}
                 >

@@ -17,9 +17,9 @@ type Project = {
 };
 
 const statusMeta: Record<Status, { label: string; dot: string }> = {
-  live: { label: "Live", dot: "bg-amber-400" },
-  building: { label: "In Active Build", dot: "bg-primary" },
-  internal: { label: "Internal Platform", dot: "bg-muted-foreground/70" },
+  live: { label: "Live", dot: "bg-foreground" },
+  building: { label: "In Active Build", dot: "bg-muted-foreground" },
+  internal: { label: "Internal Platform", dot: "bg-muted-foreground/40" },
 };
 
 const allProjects: Project[] = [
@@ -305,12 +305,6 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" className="section-padding noise-bg relative">
-      {/* Subtle background glow */}
-      <div
-        className="absolute top-1/4 left-1/3 w-[600px] h-[600px] rounded-full opacity-10 blur-[130px] pointer-events-none"
-        style={{ background: "radial-gradient(circle, hsl(43 80% 55%), transparent)" }}
-      />
-
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
           <div>
@@ -326,8 +320,13 @@ const ProjectsSection = () => {
           </p>
         </div>
 
-        {/* Intuitive Category Tabs for Quick Navigation */}
-        <div className="flex flex-wrap items-center gap-2 mb-10 pb-2 border-b border-border/40">
+        {/* Category tabs. On phones this is a sticky top tab bar: inactive tabs show
+            icon + count, the active tab shows its label. Desktop keeps full pills. */}
+        <div
+          role="tablist"
+          aria-label="Project categories"
+          className="sticky top-[61px] z-30 -mx-6 px-4 py-2 mb-8 flex items-center gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden bg-background/95 backdrop-blur-xl border-b border-border md:static md:mx-0 md:px-0 md:py-0 md:pb-2 md:mb-10 md:gap-2 md:overflow-visible md:flex-wrap md:bg-transparent md:backdrop-blur-none md:border-border/40"
+        >
           {[
             { id: "all", label: "All Projects", icon: Layers, count: allProjects.length },
             { id: "saas", label: "SaaS & Mobile Apps", icon: Sparkles, count: saasProjects.length },
@@ -335,19 +334,28 @@ const ProjectsSection = () => {
             { id: "hobby", label: "Hobby & Experiments", icon: Code2, count: hobbyProjects.length },
           ].map((tab) => {
             const Icon = tab.icon;
+            const active = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-heading font-semibold transition-all ${
-                  activeTab === tab.id
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "glass-card text-muted-foreground hover:text-foreground hover:border-primary/40"
+                type="button"
+                role="tab"
+                aria-selected={active}
+                aria-label={`${tab.label} (${tab.count})`}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                className={`flex h-9 items-center justify-center gap-1 px-2 rounded-full text-xs font-heading font-semibold whitespace-nowrap transition-all md:h-auto md:gap-2 md:px-4 md:py-2 md:flex-none ${
+                  active
+                    ? "flex-auto px-3 bg-primary text-primary-foreground shadow-md"
+                    : "shrink-0 glass-card text-muted-foreground hover:text-foreground hover:border-primary/40"
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
-                <span>{tab.label}</span>
-                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-background/30 text-current">
+                <Icon className={`w-3.5 h-3.5 ${active ? "hidden md:block" : ""}`} />
+                <span className={active ? "" : "hidden md:inline"}>{tab.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full bg-background/30 text-current tabular-nums ${
+                    active ? "hidden md:inline" : ""
+                  }`}
+                >
                   {tab.count}
                 </span>
               </button>

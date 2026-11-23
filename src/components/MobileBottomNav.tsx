@@ -1,104 +1,54 @@
-import React, { useState, useEffect } from "react";
-import { User, FolderGit2, MessageSquare, Bot } from "lucide-react";
+import { Home, User, Hammer, Code2, FolderGit2, MessageSquare } from "lucide-react";
+
+export const MOBILE_TABS = [
+  { id: "hero", label: "Home", title: "CvSuhail", icon: Home },
+  { id: "about", label: "About", title: "About Me", icon: User },
+  { id: "services", label: "Build", title: "What I Build", icon: Hammer },
+  { id: "skills", label: "Skills", title: "Skills & Expertise", icon: Code2 },
+  { id: "projects", label: "Projects", title: "Selected Work", icon: FolderGit2 },
+  { id: "contact", label: "Contact", title: "Hire CvSuhail", icon: MessageSquare },
+] as const;
+
+export type MobileTabId = (typeof MOBILE_TABS)[number]["id"];
 
 interface MobileBottomNavProps {
-  onOpenAI: () => void;
-  isAIOpen: boolean;
+  activeTab: MobileTabId;
+  onSelect: (id: MobileTabId) => void;
 }
 
-const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onOpenAI, isAIOpen }) => {
-  const [activeSection, setActiveSection] = useState<string>("hero");
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sectionIds = ["about", "projects", "contact"];
-      const scrollPos = window.scrollY + window.innerHeight / 3;
-
-      for (const id of [...sectionIds].reverse()) {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(id);
-          return;
-        }
-      }
-      setActiveSection("hero");
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // If AI Chat is active full screen on mobile, hide the bottom navigation bar
-  if (isAIOpen) return null;
-
-  const scrollTo = (id: string) => {
-    setActiveSection(id);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-xl border-t border-border/80 px-3 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom,0px))] flex items-center justify-around shadow-[0_-10px_25px_rgba(0,0,0,0.5)] min-h-[60px]">
-      {/* About Tab */}
-      <button
-        onClick={() => scrollTo("about")}
-        className={`flex flex-col items-center justify-center gap-1 active:scale-95 transition-all py-1 px-3 rounded-full ${
-          activeSection === "about"
-            ? "text-primary font-bold bg-primary/10 border border-primary/20"
-            : "text-muted-foreground hover:text-primary font-medium"
-        }`}
-        aria-label="About Section"
-      >
-        <User className="w-5 h-5" />
-        <span className="text-[10px] font-heading tracking-tight">About</span>
-      </button>
-
-      {/* Projects Tab */}
-      <button
-        onClick={() => scrollTo("projects")}
-        className={`flex flex-col items-center justify-center gap-1 active:scale-95 transition-all py-1 px-3 rounded-full ${
-          activeSection === "projects"
-            ? "text-primary font-bold bg-primary/10 border border-primary/20"
-            : "text-muted-foreground hover:text-primary font-medium"
-        }`}
-        aria-label="Projects Section"
-      >
-        <FolderGit2 className="w-5 h-5" />
-        <span className="text-[10px] font-heading tracking-tight">Projects</span>
-      </button>
-
-      {/* Contact Tab */}
-      <button
-        onClick={() => scrollTo("contact")}
-        className={`flex flex-col items-center justify-center gap-1 active:scale-95 transition-all py-1 px-3 rounded-full ${
-          activeSection === "contact"
-            ? "text-primary font-bold bg-primary/10 border border-primary/20"
-            : "text-muted-foreground hover:text-primary font-medium"
-        }`}
-        aria-label="Contact Section"
-      >
-        <MessageSquare className="w-5 h-5" />
-        <span className="text-[10px] font-heading tracking-tight">Contact</span>
-      </button>
-
-      {/* AI Chat Tab */}
-      <button
-        onClick={onOpenAI}
-        className={`flex flex-col items-center justify-center gap-1 active:scale-95 transition-all py-1 px-3 rounded-full ${
-          isAIOpen
-            ? "text-primary font-bold bg-primary/20 border border-primary/30"
-            : "text-muted-foreground hover:text-primary font-medium"
-        }`}
-        aria-label="Open AI Chat"
-      >
-        <Bot className="w-5 h-5 text-primary" />
-        <span className="text-[10px] font-heading tracking-tight font-semibold text-primary">CV's AI</span>
-      </button>
-    </nav>
-  );
-};
+const MobileBottomNav = ({ activeTab, onSelect }: MobileBottomNavProps) => (
+  <nav
+    aria-label="Sections"
+    className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-background/95 backdrop-blur-xl border-t border-border pb-[env(safe-area-inset-bottom,0px)]"
+  >
+    <div className="grid grid-cols-6 h-16">
+      {MOBILE_TABS.map(({ id, label, icon: Icon }) => {
+        const active = activeTab === id;
+        return (
+          <button
+            key={id}
+            type="button"
+            onClick={() => onSelect(id)}
+            aria-current={active ? "page" : undefined}
+            className={`flex flex-col items-center justify-center gap-1 transition-colors active:scale-95 ${
+              active ? "text-foreground" : "text-muted-foreground"
+            }`}
+          >
+            <span
+              className={`flex h-7 w-12 items-center justify-center rounded-full transition-colors ${
+                active ? "bg-secondary" : ""
+              }`}
+            >
+              <Icon className="h-[18px] w-[18px]" strokeWidth={active ? 2.4 : 1.8} />
+            </span>
+            <span className={`text-[10px] font-heading leading-none ${active ? "font-semibold" : "font-medium"}`}>
+              {label}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  </nav>
+);
 
 export default MobileBottomNav;
