@@ -1,5 +1,4 @@
 import { CheckCircle2, Linkedin, MapPin, MessageSquare, Globe, ArrowDown } from "lucide-react";
-import RippleDistortion from "./RippleDistortion";
 
 const HeroSection = () => {
   return (
@@ -30,23 +29,18 @@ const HeroSection = () => {
 
       {/* MAIN HERO CONTENT (ATTRACTIVELY CENTERED & BALANCED) */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col items-center text-center pt-2">
-        {/* Main Hero DP Avatar with RippleDistortion effect */}
+        {/* Main Hero DP Avatar */}
         <div id="hero-dp" className="relative inline-block group mb-6">
           <div
             className="w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full border-4 border-background overflow-hidden shadow-2xl bg-background relative z-10 transition-transform duration-300 group-hover:scale-[1.03]"
             style={{ boxShadow: "0 18px 40px rgba(0,0,0,0.7), var(--gold-glow-strong)" }}
           >
-            <RippleDistortion
+            <img
               src="/dp.jpeg"
-              brushSize={90}
-              strength={0.16}
-              swirl={0.8}
-              rings={3}
-              tint="#eab308"
-              tintAmount={0.15}
-              grayscale={false}
-              trigger="both"
-              className="w-full h-full"
+              alt="Muhammed Suhail CV"
+              width={176}
+              height={176}
+              className="w-full h-full object-cover"
             />
           </div>
           {/* Verified gold checkmark badge */}

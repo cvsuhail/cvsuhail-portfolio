@@ -57,7 +57,7 @@ Engagement types: full-time employment, contract, and fixed-scope project work.
 - [AppReady](https://apprdy.awwads.in): Automation for Google Play's 14-day closed testing requirement. SDK wiring, tester activity tracking, readiness checks. Next.js, Firebase, Cloud Functions.
 - SENSET: Real-time examination platform — secure assessments, live invigilation, evaluation workflows, per-question analytics. Internal to SSF Kerala, no public URL.
 - Sensorium: Internal operations platform for the SSF technology team — approvals, task routing, digital records. No public URL.
-- [PlanUndo](https://planundo.online): Social discovery platform built around real-world activities.
+- [PlanUndo](https://planundo-online.vercel.app/): Social discovery platform built around real-world activities.
 - [BrandQR](https://brandqr.site): Smart QR codes and digital profile pages for businesses.
 - [Umigle](https://umigle.awwads.in): Real-time WebRTC video chat without a media server.
 - [Oosi](https://oosi.awwads.in): Sandbox for interface experiments.
@@ -68,8 +68,8 @@ Engagement types: full-time employment, contract, and fixed-scope project work.
 - https://keralasahityotsav.com
 - https://sahityotsav.com
 - https://ssfkerala.org
-- https://reelmanuniforms.com
-- https://reelmanbespoke.com
+- https://uniform-company.vercel.app/
+- https://reelman-bespoke.vercel.app/
 - https://yas-orcin.vercel.app
 
 ## How to hire him

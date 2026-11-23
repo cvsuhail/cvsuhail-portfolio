@@ -99,6 +99,51 @@ const allProjects: Project[] = [
     ],
     url: "https://apprdy.cvsuhail.online",
   },
+  {
+    name: "Pin&Plan",
+    kicker: "Projects, approvals & invoices for creative agencies",
+    category: "saas",
+    year: "2026",
+    status: "live",
+    image: "/projects/pinplan.jpg",
+    body:
+      "One app for creative agencies to plan projects, collect client approvals, send quotations and raise GST invoices. Plan. Approve. Get paid.",
+    specs: [
+      { label: "Type", value: "Agency SaaS" },
+      { label: "Market", value: "India · GST-ready" },
+    ],
+    url: "https://pinplan.work/",
+  },
+  {
+    name: "Zikkaro",
+    kicker: "All-in-one operating system for tour agencies",
+    category: "saas",
+    year: "2026",
+    status: "live",
+    image: "/projects/zikkaro.png",
+    body:
+      "Packages, dated trips, a branded booking site, payments, guides and profit per trip in one place, built for Indian tour and trip agencies.",
+    specs: [
+      { label: "Type", value: "Travel SaaS" },
+      { label: "Market", value: "Indian tour agencies" },
+    ],
+    url: "https://zikkaro.com/",
+  },
+  {
+    name: "botire ai",
+    kicker: "One project, every AI account",
+    category: "saas",
+    year: "2026",
+    status: "live",
+    image: "/projects/botire-ai.png",
+    body:
+      "Free desktop app that keeps one project and its full context while you switch between Claude, ChatGPT, Gemini and more through their official apps.",
+    specs: [
+      { label: "Type", value: "Desktop App" },
+      { label: "Platforms", value: "macOS · Windows · Linux" },
+    ],
+    url: "https://botire-ai.web.app/",
+  },
 
   // 2. Client Websites & Static Web Experiences
   {
@@ -159,7 +204,7 @@ const allProjects: Project[] = [
       { label: "Type", value: "Brand Showcase" },
       { label: "Stack", value: "React · Tailwind CSS" },
     ],
-    url: "https://reelmanuniforms.com",
+    url: "https://uniform-company.vercel.app/",
   },
   {
     name: "Reelman Bespoke",
@@ -174,7 +219,7 @@ const allProjects: Project[] = [
       { label: "Type", value: "Luxury Brand Site" },
       { label: "Stack", value: "React · Modern Styling" },
     ],
-    url: "https://reelmanbespoke.com",
+    url: "https://reelman-bespoke.vercel.app/",
   },
   {
     name: "Yas Orcin",
@@ -203,7 +248,7 @@ const allProjects: Project[] = [
     body:
       "Find people nearby, plan activities, and show up. Social discovery platform built around real-world events and activity coordination.",
     tag: "Hobby Project",
-    url: "https://planundo.online",
+    url: "https://planundo-online.vercel.app/",
   },
   {
     name: "BrandQR",
