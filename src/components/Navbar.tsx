@@ -20,6 +20,8 @@ const Navbar = ({ isPhone = false, activeTab, onHome, onOpenResume, title }: Nav
   const [showNavDp, setShowNavDp] = useState(false);
   const showNavDpRef = useRef(false);
   const handleScrollRef = useRef<() => void>(() => {});
+  const isPhoneRef = useRef(isPhone);
+  isPhoneRef.current = isPhone;
 
   useEffect(() => {
     // Entrance reveal for navbar
@@ -43,6 +45,8 @@ const Navbar = ({ isPhone = false, activeTab, onHome, onOpenResume, title }: Nav
         isHeroDpVisible = rect.bottom > 70;
       }
       // No hero photo on screen (another phone tab is open): show the navbar DP.
+      // On phones the top bar always shows the photo, like an app header.
+      if (isPhoneRef.current) isHeroDpVisible = false;
 
       // 1. SHOW NAVBAR DP (Hero DP scrolled out of view) -> FAST 0.25s DROP ANIMATION
       if (!isHeroDpVisible && !showNavDpRef.current) {
@@ -105,7 +109,7 @@ const Navbar = ({ isPhone = false, activeTab, onHome, onOpenResume, title }: Nav
   useEffect(() => {
     const id = requestAnimationFrame(() => handleScrollRef.current());
     return () => cancelAnimationFrame(id);
-  }, [activeTab]);
+  }, [activeTab, isPhone]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

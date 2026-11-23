@@ -44,7 +44,7 @@ Engagement types: full-time employment, contract, and fixed-scope project work.
 
 ## Work history
 
-- **Product Engineer — Technology Team, Sunni Students Federation (SSF Kerala)**, Kerala, India, Jan 2025 – present. Digital platforms for one of Kerala's largest student organizations.
+- **Solutions Engineer — Technology Team, Sunni Students Federation (SSF Kerala)**, Kerala, India, Jan 2025 – present. Digital platforms for one of Kerala's largest student organizations.
 - **Cofounder & Product Engineer, Peedia.online**, Kerala, India, 2025 – present. Product strategy, architecture and infrastructure for a multi-tenant ecommerce SaaS.
 - **Product Engineer, UnitVilla LLC**, remote, Dec 2024 – present. SaaS products for international customers across web and mobile.
 - **Software Engineer, Keibot Learning Solutions Pvt Ltd**, Kerala, India, Apr 2022 – Nov 2024. Enterprise web and mobile applications, REST APIs, production releases on iOS and Android.

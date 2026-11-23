@@ -4,12 +4,12 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full flex flex-col justify-between noise-bg overflow-hidden pt-20 md:pt-24 pb-12"
+      className="relative min-h-screen w-full flex flex-col justify-between noise-bg overflow-hidden pt-20 md:pt-24 pb-12 max-md:min-h-0 max-md:pt-[77px] max-md:pb-6"
     >
       {/* MAIN HERO CONTENT (ATTRACTIVELY CENTERED & BALANCED) */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col items-center text-center pt-2">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-10 flex flex-col items-center text-center pt-2 max-md:pt-0">
         {/* Main Hero DP Avatar */}
-        <div id="hero-dp" className="relative inline-block group mb-6">
+        <div id="hero-dp" className="relative inline-block group mb-6 max-md:mb-4">
           <div
             className="w-32 h-32 sm:w-40 sm:h-40 md:w-44 md:h-44 rounded-full border-4 border-background overflow-hidden shadow-2xl bg-background relative z-10 transition-transform duration-300 group-hover:scale-[1.03]"
             style={{ boxShadow: "0 18px 40px rgba(0,0,0,0.12), var(--gold-glow-strong)" }}
@@ -32,7 +32,7 @@ const HeroSection = () => {
         </div>
 
         {/* Center Aligned Profile Details & Metadata */}
-        <div className="space-y-5 w-full flex flex-col items-center">
+        <div className="space-y-5 max-md:space-y-4 w-full flex flex-col items-center">
           {/* Clean Name Header with visible (CvSuhail) gradient */}
           <h1 className="hero-name text-2xl sm:text-4xl md:text-6xl font-heading font-bold tracking-tight text-foreground leading-snug px-2">
             Muhammed Suhail CV <span className="text-gradient font-bold block sm:inline mt-1 sm:mt-0">(CvSuhail)</span>
@@ -62,7 +62,7 @@ const HeroSection = () => {
           </p>
 
           {/* Quick Action Buttons (3 Buttons in the Same Row) */}
-          <div className="w-full flex flex-row items-center justify-center flex-wrap gap-2.5 sm:gap-3 pt-2">
+          <div className="w-full flex flex-row items-center justify-center flex-wrap gap-2.5 sm:gap-3 pt-2 max-md:grid max-md:grid-cols-2 max-md:pt-1 [&>a]:max-md:py-3 [&>a:first-child]:max-md:col-span-2">
             <a
               href={`https://wa.me/919562770397?text=${encodeURIComponent("Hi CvSuhail, I saw your portfolio and would like to discuss hiring you for a developer role/project.")}`}
               target="_blank"
@@ -79,7 +79,7 @@ const HeroSection = () => {
               className="flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2.5 sm:px-5 sm:py-3.5 rounded-full text-xs sm:text-sm font-heading font-semibold glass-card gold-border-hover text-foreground hover:text-primary transition-all shadow-lg hover:scale-105"
             >
               <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary shrink-0" />
-              <span>Connect on LinkedIn</span>
+              <span><span className="max-md:hidden">Connect on </span>LinkedIn</span>
             </a>
             <a
               href="#projects"
@@ -100,8 +100,8 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator at bottom */}
-      <div className="flex flex-col items-center gap-1 pt-8 md:pt-12 pb-6">
+      {/* Scroll indicator at bottom (desktop only; phones use the tab bar) */}
+      <div className="flex flex-col items-center gap-1 pt-8 md:pt-12 pb-6 max-md:hidden">
         <a href="#about" aria-label="Scroll to About" className="flex flex-col items-center gap-1.5 group">
           <span className="text-[10px] text-muted-foreground font-body tracking-widest uppercase group-hover:text-primary transition-colors">Scroll Down</span>
           <ArrowDown className="w-3.5 h-3.5 text-primary animate-bounce" />

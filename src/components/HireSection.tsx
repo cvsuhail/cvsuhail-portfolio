@@ -41,26 +41,26 @@ const HireSection = () => {
   return (
     <section id="hire" className="section-padding noise-bg relative">
       <div className="relative z-10 mx-auto max-w-6xl">
-        <p className="mb-4 font-heading text-xs uppercase tracking-[0.24em] text-muted-foreground">
+        <p className="mb-4 font-heading text-xs uppercase tracking-[0.24em] text-muted-foreground max-md:mb-2">
           Open for work
         </p>
-        <h2 className="mb-4 font-heading text-4xl font-bold tracking-tight md:text-6xl">
+        <h2 className="mb-4 font-heading text-4xl font-bold tracking-tight md:text-6xl max-md:hidden">
           Hire <span className="text-gradient">CvSuhail</span>
         </h2>
-        <p className="mb-12 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground">
+        <p className="mb-12 max-w-2xl font-body text-lg leading-relaxed text-muted-foreground max-md:text-sm max-md:mb-5">
           I'm Muhammed Suhail CV, a product engineer in Kerala, India. I build websites,
           mobile apps and SaaS platforms end to end — one person, from the first sketch
           to the App Store listing.
         </p>
 
-        <div className="grid gap-6 lg:grid-cols-5">
+        <div className="grid gap-6 lg:grid-cols-5 max-md:gap-3">
           {/* Fact sheet */}
           <div className="project-card lg:col-span-3">
             <dl className="divide-y divide-border/40">
               {facts.map((fact) => (
                 <div
                   key={fact.label}
-                  className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:gap-6 md:px-8"
+                  className="flex flex-col gap-1 px-6 py-4 sm:flex-row sm:gap-6 md:px-8 max-md:px-4 max-md:py-3"
                 >
                   <dt className="flex-shrink-0 pt-px font-heading text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70 sm:w-28">
                     {fact.label}
@@ -74,7 +74,7 @@ const HireSection = () => {
           </div>
 
           {/* Contact card */}
-          <div className="project-card flex flex-col justify-between gap-6 p-6 md:p-8 lg:col-span-2">
+          <div className="project-card flex flex-col justify-between gap-6 p-6 md:p-8 lg:col-span-2 max-md:p-4 max-md:gap-4">
             <div>
               <h3 className="mb-3 font-heading text-xl font-semibold text-foreground">
                 Start a conversation
@@ -114,12 +114,12 @@ const HireSection = () => {
         </div>
 
         {/* Who this is for */}
-        <h3 className="mb-6 mt-16 font-heading text-sm uppercase tracking-[0.2em] text-muted-foreground">
+        <h3 className="mb-6 mt-16 font-heading text-sm uppercase tracking-[0.2em] text-muted-foreground max-md:mt-8 max-md:mb-3 max-md:text-xs">
           Who I usually work with
         </h3>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-3 max-md:gap-3">
           {buildsFor.map((item) => (
-            <article key={item.title} className="project-card p-6">
+            <article key={item.title} className="project-card p-6 max-md:p-4">
               <h4 className="mb-2 font-heading text-base font-semibold text-foreground">
                 {item.title}
               </h4>
